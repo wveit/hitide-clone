@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { selectGranuleFilters } from '../state/granuleSearchSlice';
 import { selectDatasets } from '../state/datasetSearchSlice';
-import { doUnselectDatasetProcess } from '../state/datasetActions';
+import { doUnselectDatasetProcess, doUnselectAllDatasetsProcess } from '../state/datasetActions';
 
 export function GranuleSearchDatasetTable({
     granuleFilters,
@@ -58,6 +58,7 @@ function select(state) {
 
 const actions = {
     onUnselectDataset: doUnselectDatasetProcess,
+    onUnselectAllDatasets: doUnselectAllDatasetsProcess,
 };
 
 export default connect(select, actions)(GranuleSearchDatasetTable);

@@ -30,12 +30,22 @@ const slice = createSlice({
         doUnselectDataset(state, action) {
             delete state.selectedDatasets[action.payload];
         },
+        doUnselectAllDatasets(state) {
+            state.selectedDatasets = {};
+        },
     },
 });
 
 export default slice.reducer;
-export const { doSetDatasets, doSetStartDate, doSetEndDate, doSetBbox, doSelectDataset, doUnselectDataset } =
-    slice.actions;
+export const {
+    doSetDatasets,
+    doSetStartDate,
+    doSetEndDate,
+    doSetBbox,
+    doSelectDataset,
+    doUnselectDataset,
+    doUnselectAllDatasets,
+} = slice.actions;
 
 export const selectDatasets = (state) => state.datasetSearch.datasets;
 export const selectStartDate = (state) => state.datasetSearch.startDate;

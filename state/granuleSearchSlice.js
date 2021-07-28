@@ -22,10 +22,13 @@ const slice = createSlice({
             const datasetId = action.payload;
             delete state.filters[datasetId];
         },
+        doDeleteAllGranuleFilters(state, action) {
+            state.filters = {};
+        },
     },
 });
 
 export default slice.reducer;
-export const { doCreateGranuleFilter, doDeleteGranuleFilter } = slice.actions;
+export const { doCreateGranuleFilter, doDeleteGranuleFilter, doDeleteAllGranuleFilters } = slice.actions;
 
 export const selectGranuleFilters = (state) => state.granuleSearch.filters;
