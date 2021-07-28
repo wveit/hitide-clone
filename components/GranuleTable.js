@@ -1,12 +1,17 @@
-import { useState } from 'react';
 import { connect } from 'react-redux';
-import { selectCurrentGranuleFilter, selectGranules } from '../state/granuleSearchSlice';
+import {
+    selectCurrentGranuleFilter,
+    selectGranules,
+    doSetSelectedGranueles,
+    selectSelectedGranules,
+} from '../state/granuleSearchSlice';
 
-function GranuleTable({ granules, selectedGranuleFilter }) {
+function GranuleTable({ granules, selectedGranuleFilter, selectedGranules, onSetSelectedGranules }) {
     let granuleArray = [];
     if (selectedGranuleFilter) granuleArray = Object.values(granules[selectedGranuleFilter]);
 
-    const [selectedRows, setSelectedRows] = useState({});
+    const datasetId = selectedGranuleFilter;
+    const currentSelectedGranules = selectedGranules[datasetId];
 
     function handleClick(e) {
         e.stopPropagation();
@@ -18,10 +23,10 @@ function GranuleTable({ granules, selectedGranuleFilter }) {
             // TODO
         } else if (e.metaKey || e.ctrlKey) {
             // handle multi select
-            setSelectedRows({ ...selectedRows, [granuleId]: true });
+            onSetSelectedGranules({ datasetId, selectedGranules: { ...currentSelectedGranules, [granuleId]: true } });
         } else {
             // handle regular select
-            setSelectedRows({ [granuleId]: true });
+            onSetSelectedGranules({ datasetId, selectedGranules: { [granuleId]: true } });
         }
     }
 
@@ -43,7 +48,7 @@ function GranuleTable({ granules, selectedGranuleFilter }) {
                             key={g.id}
                             onClick={handleClick}
                             data-granule-id={g.id}
-                            className={selectedRows[g.id] ? 'selected' : ''}
+                            className={currentSelectedGranules[g.id] ? 'selected' : ''}
                         >
                             <td>
                                 <button onClick={(e) => e.stopPropagation()}>f</button>
@@ -79,9 +84,12 @@ function select(state) {
     return {
         granules: selectGranules(state),
         selectedGranuleFilter: selectCurrentGranuleFilter(state),
+        selectedGranules: selectSelectedGranules(state),
     };
 }
 
-const actions = {};
+const actions = {
+    onSetSelectedGranules: doSetSelectedGranueles,
+};
 
 export default connect(select, actions)(GranuleTable);

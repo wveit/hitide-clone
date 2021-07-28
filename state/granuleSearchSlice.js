@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     granules: {},
     filters: {},
+    selectedGranules: {},
     currentFilter: null,
 };
 
@@ -21,11 +22,13 @@ const slice = createSlice({
             state.filters[datasetId] = filter;
             state.currentFilter = datasetId;
             state.granules[datasetId] = {};
+            state.selectedGranules[datasetId] = {};
         },
         doDeleteGranuleFilter(state, action) {
             const datasetId = action.payload;
             delete state.filters[datasetId];
             delete state.granules[datasetId];
+            delete state.selectedGranules[datasetId];
             const filterArray = Object.keys(state.filters);
             if (filterArray.length == 0) {
                 state.currentFilter = null;
@@ -37,6 +40,7 @@ const slice = createSlice({
             state.filters = {};
             state.currentFilter = null;
             state.granules = {};
+            state.selectedGranules = {};
         },
         doSetCurrentGranuleFilter(state, action) {
             state.currentFilter = action.payload;
@@ -44,6 +48,10 @@ const slice = createSlice({
         doAddGranules(state, action) {
             const { datasetId, granules } = action.payload;
             state.granules[datasetId] = { ...state.granules[datasetId], ...granules };
+        },
+        doSetSelectedGranueles(state, action) {
+            const { datasetId, selectedGranules } = action.payload;
+            state.selectedGranules[datasetId] = selectedGranules;
         },
     },
 });
@@ -55,8 +63,10 @@ export const {
     doDeleteAllGranuleFilters,
     doSetCurrentGranuleFilter,
     doAddGranules,
+    doSetSelectedGranueles,
 } = slice.actions;
 
 export const selectGranuleFilters = (state) => state.granuleSearch.filters;
 export const selectCurrentGranuleFilter = (state) => state.granuleSearch.currentFilter;
 export const selectGranules = (state) => state.granuleSearch.granules;
+export const selectSelectedGranules = (state) => state.granuleSearch.selectedGranules;
