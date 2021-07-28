@@ -1,12 +1,11 @@
 import { connect } from 'react-redux';
 import { selectDatasets, selectSelectedDatasets } from '../state/datasetSearchSlice';
-import { doFetchDatasets, doToggleDataset } from '../state/datasetActions';
+import { doToggleDataset } from '../state/datasetActions';
 
 export function DatasetTable({ datasets, selectedDatasets, onFetchDatasets, onToggleDataset }) {
     const dsArray = Object.values(datasets);
     return (
         <>
-            <button onClick={onFetchDatasets}>Fetch Datasets</button>
             <p>Found {dsArray.length} datasets.</p>
             <div className='container'>
                 <table>
@@ -29,7 +28,7 @@ export function DatasetTable({ datasets, selectedDatasets, onFetchDatasets, onTo
                                     />
                                     <button>?</button>
                                 </td>
-                                <td>{ds.shortName}</td>
+                                <td className='short-name'>{ds.shortName}</td>
                                 <td>{new Date(ds.startDate).toLocaleDateString()}</td>
                                 <td>{ds.endDate ? new Date(ds.endDate).toLocaleDateString() : '--'}</td>
                             </tr>
@@ -40,14 +39,19 @@ export function DatasetTable({ datasets, selectedDatasets, onFetchDatasets, onTo
             <style jsx>{`
                 .container {
                     height: 300px;
+                    width: 100%;
                     overflow-y: scroll;
                     border: 1px solid gray;
                     display: inline flex;
                 }
 
+                .short-name {
+                    width: auto;
+                }
+
                 th,
                 td {
-                    padding: 0.1rem 1rem;
+                    padding: 0.1rem 0.3rem;
                 }
             `}</style>
         </>
@@ -62,7 +66,6 @@ function select(state) {
 }
 
 const actions = {
-    onFetchDatasets: doFetchDatasets,
     onToggleDataset: doToggleDataset,
 };
 

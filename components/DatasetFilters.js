@@ -8,6 +8,7 @@ import {
     doSetEndDate,
     doSetBbox,
 } from '../state/datasetSearchSlice';
+import { doFetchDatasets } from '../state/datasetActions';
 
 function formatDate(dateNumber) {
     if (!dateNumber) return 'none';
@@ -15,7 +16,7 @@ function formatDate(dateNumber) {
     return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
 }
 
-function DatasetFilters({ startDate, onSetStartDate, endDate, onSetEndDate, bbox, onSetBbox }) {
+function DatasetFilters({ startDate, onSetStartDate, endDate, onSetEndDate, bbox, onSetBbox, onFetchDatasets }) {
     const [start, setStart] = useState(formatDate(startDate));
     const [end, setEnd] = useState(formatDate(endDate));
     const [box, setBox] = useState(JSON.stringify(bbox));
@@ -46,6 +47,7 @@ function DatasetFilters({ startDate, onSetStartDate, endDate, onSetEndDate, bbox
                 <button onClick={() => onSetBbox(JSON.parse(box))}>Update</button>
                 <button onClick={() => setBox(JSON.stringify(bbox))}>Reset</button>
             </div>
+            <button onClick={onFetchDatasets}>Fetch Datasets</button>
         </div>
     );
 }
@@ -54,6 +56,7 @@ const actions = {
     onSetStartDate: doSetStartDate,
     onSetEndDate: doSetEndDate,
     onSetBbox: doSetBbox,
+    onFetchDatasets: doFetchDatasets,
 };
 
 function select(state) {
