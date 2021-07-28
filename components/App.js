@@ -3,6 +3,7 @@ import DatasetTable from './DatasetTable';
 import GranuleSearchDatasetTable from './GranuleSearchDatasetTable';
 import GranuleFilters from './GranuleFilters';
 import GranuleTable from './GranuleTable';
+import GranuleSearchButtonBar from './GranuleSearchButtonBar';
 
 export default function App() {
     return (
@@ -19,6 +20,7 @@ export default function App() {
                     <GranuleSearchDatasetTable />
                     <GranuleFilters />
                     <GranuleTable />
+                    <GranuleSearchButtonBar />
                 </section>
                 <section>
                     <h2>Downloads</h2>

@@ -17,7 +17,6 @@ function GranuleTable({ granules, selectedGranuleFilter, selectedGranules, onSet
         e.stopPropagation();
         const tr = e.target.closest('tr');
         const granuleId = tr.dataset['granuleId'];
-        console.log(granuleId);
         if (e.shiftKey) {
             // handle range select
             // TODO
