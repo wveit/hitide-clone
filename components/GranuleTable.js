@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 import { selectCurrentGranuleFilter, selectGranules } from '../state/granuleSearchSlice';
 
 function GranuleTable({ granules, selectedGranuleFilter }) {
-    if (!selectedGranuleFilter) return null;
-    const granuleArray = Object.values(granules[selectedGranuleFilter]);
+    let granuleArray = [];
+    if (selectedGranuleFilter) granuleArray = Object.values(granules[selectedGranuleFilter]);
 
     return (
         <div className='container'>

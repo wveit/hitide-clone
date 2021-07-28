@@ -1,6 +1,7 @@
 import DatasetFilters from './DatasetFilters';
 import DatasetTable from './DatasetTable';
 import GranuleSearchDatasetTable from './GranuleSearchDatasetTable';
+import GranuleFilters from './GranuleFilters';
 import GranuleTable from './GranuleTable';
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
                 <section>
                     <h2>GranuleSearch</h2>
                     <GranuleSearchDatasetTable />
+                    <GranuleFilters />
                     <GranuleTable />
                 </section>
                 <section>

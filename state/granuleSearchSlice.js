@@ -16,7 +16,7 @@ const slice = createSlice({
                 datasetId,
                 startDate: null,
                 endDate: null,
-                string: null,
+                name: null,
             };
             state.filters[datasetId] = filter;
             state.currentFilter = datasetId;
