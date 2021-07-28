@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
     selectStartDate,
     selectEndDate,
@@ -20,6 +20,8 @@ function DatasetFilters({ startDate, onSetStartDate, endDate, onSetEndDate, bbox
     const [start, setStart] = useState(formatDate(startDate));
     const [end, setEnd] = useState(formatDate(endDate));
     const [box, setBox] = useState(JSON.stringify(bbox));
+
+    useEffect(() => onFetchDatasets(), [onFetchDatasets]);
 
     return (
         <div className='DatasetFilters'>
@@ -47,7 +49,6 @@ function DatasetFilters({ startDate, onSetStartDate, endDate, onSetEndDate, bbox
                 <button onClick={() => onSetBbox(JSON.parse(box))}>Update</button>
                 <button onClick={() => setBox(JSON.stringify(bbox))}>Reset</button>
             </div>
-            <button onClick={onFetchDatasets}>Fetch Datasets</button>
         </div>
     );
 }
