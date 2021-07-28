@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     datasets: {},
+    selectedDatasets: {},
     startDate: new Date(2000, 0, 1).getTime(),
     endDate: null,
     bbox: [-180, -90, 180, 90],
@@ -23,13 +24,21 @@ const slice = createSlice({
         doSetBbox(state, action) {
             state.bbox = action.payload;
         },
+        doSelectDataset(state, action) {
+            state.selectedDatasets[action.payload] = true;
+        },
+        doUnselectDataset(state, action) {
+            delete state.selectedDatasets[action.payload];
+        },
     },
 });
 
 export default slice.reducer;
-export const { doSetDatasets, doSetStartDate, doSetEndDate, doSetBbox } = slice.actions;
+export const { doSetDatasets, doSetStartDate, doSetEndDate, doSetBbox, doSelectDataset, doUnselectDataset } =
+    slice.actions;
 
 export const selectDatasets = (state) => state.datasetSearch.datasets;
 export const selectStartDate = (state) => state.datasetSearch.startDate;
 export const selectEndDate = (state) => state.datasetSearch.endDate;
 export const selectBbox = (state) => state.datasetSearch.bbox;
+export const selectSelectedDatasets = (state) => state.datasetSearch.selectedDatasets;
