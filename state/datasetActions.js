@@ -6,6 +6,7 @@ import {
     doUnselectAllDatasets,
     selectSelectedDatasets,
 } from './datasetSearchSlice';
+import { doFetchGranules } from './granuleActions';
 import { doCreateGranuleFilter, doDeleteGranuleFilter, doDeleteAllGranuleFilters } from './granuleSearchSlice';
 
 export const doFetchDatasets = () => async (dispatch, getState) => {
@@ -18,6 +19,7 @@ export const doFetchDatasets = () => async (dispatch, getState) => {
 export const doSelectDatasetProcess = (datasetId) => (dispatch) => {
     dispatch(doSelectDataset(datasetId));
     dispatch(doCreateGranuleFilter(datasetId));
+    dispatch(doFetchGranules(datasetId));
 };
 
 export const doUnselectDatasetProcess = (datasetId) => (dispatch) => {

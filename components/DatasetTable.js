@@ -24,7 +24,7 @@ export function DatasetTable({ datasets, selectedDatasets, onFetchDatasets, onTo
                                 <td>
                                     <input
                                         type='checkbox'
-                                        checked={selectedDatasets[ds.id]}
+                                        checked={!!selectedDatasets[ds.id]}
                                         onChange={() => onToggleDataset(ds.id)}
                                     />
                                     <button>?</button>
