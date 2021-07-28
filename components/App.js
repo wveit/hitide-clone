@@ -1,6 +1,7 @@
 import DatasetFilters from './DatasetFilters';
 import DatasetTable from './DatasetTable';
 import GranuleSearchDatasetTable from './GranuleSearchDatasetTable';
+import GranuleTable from './GranuleTable';
 
 export default function App() {
     return (
@@ -11,6 +12,7 @@ export default function App() {
             <DatasetTable />
             <h2>GranuleSearch</h2>
             <GranuleSearchDatasetTable />
+            <GranuleTable />
         </div>
     );
 }

@@ -59,3 +59,4 @@ export const {
 
 export const selectGranuleFilters = (state) => state.granuleSearch.filters;
 export const selectCurrentGranuleFilter = (state) => state.granuleSearch.currentFilter;
+export const selectGranules = (state) => state.granuleSearch.granules;
