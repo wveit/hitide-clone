@@ -6,7 +6,6 @@ export function DatasetTable({ datasets, selectedDatasets, onFetchDatasets, onTo
     const dsArray = Object.values(datasets);
     return (
         <>
-            <h3>Dataset Table</h3>
             <button onClick={onFetchDatasets}>Fetch Datasets</button>
             <p>Found {dsArray.length} datasets.</p>
             <div className='container'>

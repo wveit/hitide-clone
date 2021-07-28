@@ -1,6 +1,7 @@
 import * as api from '../api-requests/datasets';
-import { doSetDatasets, doSelectDataset, doUnSelectDataset } from './datasetSearchSlice';
-import { selectBbox, selectStartDate, selectEndDate, selectSelectedDatasets } from './datasetSearchSlice';
+import { doSetDatasets, doSelectDataset, doUnselectDataset } from './datasetSearchSlice';
+import { selectSelectedDatasets } from './datasetSearchSlice';
+import { doCreateGranuleFilter, doDeleteGranuleFilter } from './granuleSearchSlice';
 
 export const doFetchDatasets = () => async (dispatch, getState) => {
     const { bbox, startDate, endDate } = getState().datasetSearch;
@@ -11,14 +12,16 @@ export const doFetchDatasets = () => async (dispatch, getState) => {
 
 export const doSelectDatasetProcess = (datasetId) => async (dispatch, getState) => {
     dispatch(doSelectDataset(datasetId));
+    dispatch(doCreateGranuleFilter(datasetId));
 };
 
 export const doUnselectDatasetProcess = (datasetId) => async (dispatch, getState) => {
     dispatch(doUnselectDataset(datasetId));
+    dispatch(doDeleteGranuleFilter(datasetId));
 };
 
 export const doToggleDataset = (datasetId) => async (dispatch, getState) => {
     const isSelected = !!selectSelectedDatasets(getState())[datasetId];
-    if (isSelected) return doSelectDatasetProcess(datasetId);
-    else return doUnselectDatasetProcess(datasetId);
+    if (isSelected) dispatch(doUnselectDatasetProcess(datasetId));
+    else dispatch(doSelectDatasetProcess(datasetId));
 };
