@@ -1,5 +1,5 @@
-import { fetchGranules } from '../api-requests/granules';
-import { selectBbox, selectDatasets } from './datasetSearchSlice';
+import { fetchGranules, extractGranules } from '../api-requests/granules';
+import { doSetDatasetGranuleCount, selectBbox } from './datasetSearchSlice';
 import { selectGranuleFilters } from './granuleSearchSlice';
 
 export const doFetchGranules = (datasetId) => async (dispatch, getState) => {
@@ -7,5 +7,6 @@ export const doFetchGranules = (datasetId) => async (dispatch, getState) => {
     const bbox = selectBbox(state);
     const { startDate, endDate } = selectGranuleFilters(state)[datasetId];
     const rawResponse = await fetchGranules({ datasetId, bbox, startDate, endDate });
-    console.log(rawResponse);
+    const { granules, count } = extractGranules(rawResponse);
+    dispatch(doSetDatasetGranuleCount({ datasetId, count }));
 };

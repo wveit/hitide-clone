@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     datasets: {},
     selectedDatasets: {},
+    granuleCounts: {},
     startDate: new Date(2000, 0, 1).getTime(),
     endDate: null,
     bbox: [-180, -90, 180, 90],
@@ -29,9 +30,14 @@ const slice = createSlice({
         },
         doUnselectDataset(state, action) {
             delete state.selectedDatasets[action.payload];
+            delete state.granuleCounts[action.payload];
         },
         doUnselectAllDatasets(state) {
             state.selectedDatasets = {};
+        },
+        doSetDatasetGranuleCount(state, action) {
+            const { datasetId, count } = action.payload;
+            state.granuleCounts[datasetId] = count;
         },
     },
 });
@@ -45,6 +51,7 @@ export const {
     doSelectDataset,
     doUnselectDataset,
     doUnselectAllDatasets,
+    doSetDatasetGranuleCount,
 } = slice.actions;
 
 export const selectDatasets = (state) => state.datasetSearch.datasets;
