@@ -59,3 +59,4 @@ export const selectStartDate = (state) => state.datasetSearch.startDate;
 export const selectEndDate = (state) => state.datasetSearch.endDate;
 export const selectBbox = (state) => state.datasetSearch.bbox;
 export const selectSelectedDatasets = (state) => state.datasetSearch.selectedDatasets;
+export const selectDatasetGranuleCounts = (state) => state.datasetSearch.granuleCounts;

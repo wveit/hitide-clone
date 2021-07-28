@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { selectGranuleFilters } from '../state/granuleSearchSlice';
-import { selectDatasets } from '../state/datasetSearchSlice';
+import { selectDatasets, selectDatasetGranuleCounts } from '../state/datasetSearchSlice';
 import { doUnselectDatasetProcess, doUnselectAllDatasetsProcess } from '../state/datasetActions';
 
 export function GranuleSearchDatasetTable({
@@ -33,8 +33,7 @@ export function GranuleSearchDatasetTable({
                     {granuleFilterArray.map((filter) => (
                         <tr key={filter.datasetId}>
                             <td>{datasets[filter.datasetId].shortName}</td>
-                            {/* <td>{datasetGranuleCounts[filter.datasetId]}</td> */}
-                            <td>1000</td>
+                            <td>{datasetGranuleCounts[filter.datasetId]}</td>
                             <td>
                                 <button onClick={() => onUnselectDataset(filter.datasetId)}>x</button>
                             </td>
@@ -45,6 +44,13 @@ export function GranuleSearchDatasetTable({
                     ))}
                 </tbody>
             </table>
+
+            <style jsx>{`
+                th,
+                td {
+                    padding: 0.1rem 1rem;
+                }
+            `}</style>
         </div>
     );
 }
@@ -53,6 +59,7 @@ function select(state) {
     return {
         granuleFilters: selectGranuleFilters(state),
         datasets: selectDatasets(state),
+        datasetGranuleCounts: selectDatasetGranuleCounts(state),
     };
 }
 
