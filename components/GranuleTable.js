@@ -6,7 +6,7 @@ function GranuleTable({ granules, selectedGranuleFilter }) {
     const granuleArray = Object.values(granules[selectedGranuleFilter]);
 
     return (
-        <div>
+        <div className='container'>
             <table>
                 <thead>
                     <tr>
@@ -33,6 +33,15 @@ function GranuleTable({ granules, selectedGranuleFilter }) {
                     ))}
                 </tbody>
             </table>
+
+            <style jsx>{`
+                .container {
+                    width: 100%;
+                    height: 300px;
+                    overflow-y: scroll;
+                    border: 1px solid gray;
+                }
+            `}</style>
         </div>
     );
 }

@@ -21,7 +21,7 @@ export function GranuleSearchDatasetTable({
     const granuleFilterArray = Object.values(granuleFilters);
 
     return (
-        <div>
+        <div className='container'>
             <table>
                 <thead>
                     <tr>
@@ -70,6 +70,13 @@ export function GranuleSearchDatasetTable({
             </table>
 
             <style jsx>{`
+                .container {
+                    width: 100%;
+                    height: 150px;
+                    border: 1px solid gray;
+                    overflow-y: scroll;
+                }
+
                 th,
                 td {
                     padding: 0.1rem 1rem;

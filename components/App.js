@@ -46,6 +46,10 @@ export default function App() {
                     margin: 1px;
                 }
 
+                section > :global(*) {
+                    margin: 0.5rem;
+                }
+
                 h1 {
                     text-align: center;
                     background-color: lightsteelblue;
