@@ -1,5 +1,9 @@
 import { connect } from 'react-redux';
-import { selectGranuleFilters } from '../state/granuleSearchSlice';
+import {
+    doSetCurrentGranuleFilter,
+    selectCurrentGranuleFilter,
+    selectGranuleFilters,
+} from '../state/granuleSearchSlice';
 import { selectDatasets, selectDatasetGranuleCounts } from '../state/datasetSearchSlice';
 import { doUnselectDatasetProcess, doUnselectAllDatasetsProcess } from '../state/datasetActions';
 
@@ -11,6 +15,8 @@ export function GranuleSearchDatasetTable({
     onDownloadAllGranulesForDataset,
     onUnselectAllDatasets,
     onDownloadAllGranules,
+    currentGranuleFilter,
+    onGranuleFilterSelect,
 }) {
     const granuleFilterArray = Object.values(granuleFilters);
 
@@ -31,14 +37,32 @@ export function GranuleSearchDatasetTable({
                 </thead>
                 <tbody>
                     {granuleFilterArray.map((filter) => (
-                        <tr key={filter.datasetId}>
+                        <tr
+                            key={filter.datasetId}
+                            className={currentGranuleFilter === filter.datasetId ? 'selected' : ''}
+                            onClick={() => onGranuleFilterSelect(filter.datasetId)}
+                        >
                             <td>{datasets[filter.datasetId].shortName}</td>
                             <td>{datasetGranuleCounts[filter.datasetId]}</td>
                             <td>
-                                <button onClick={() => onUnselectDataset(filter.datasetId)}>x</button>
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        onUnselectDataset(filter.datasetId);
+                                    }}
+                                >
+                                    x
+                                </button>
                             </td>
                             <td>
-                                <button onClick={() => onDownloadAllGranulesForDataset(filter.datasetId)}>o</button>
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        onDownloadAllGranulesForDataset(filter.datasetId);
+                                    }}
+                                >
+                                    o
+                                </button>
                             </td>
                         </tr>
                     ))}
@@ -50,6 +74,10 @@ export function GranuleSearchDatasetTable({
                 td {
                     padding: 0.1rem 1rem;
                 }
+
+                .selected {
+                    background-color: lightgray;
+                }
             `}</style>
         </div>
     );
@@ -60,12 +88,14 @@ function select(state) {
         granuleFilters: selectGranuleFilters(state),
         datasets: selectDatasets(state),
         datasetGranuleCounts: selectDatasetGranuleCounts(state),
+        currentGranuleFilter: selectCurrentGranuleFilter(state),
     };
 }
 
 const actions = {
     onUnselectDataset: doUnselectDatasetProcess,
     onUnselectAllDatasets: doUnselectAllDatasetsProcess,
+    onGranuleFilterSelect: doSetCurrentGranuleFilter,
 };
 
 export default connect(select, actions)(GranuleSearchDatasetTable);
