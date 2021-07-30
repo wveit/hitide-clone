@@ -5,29 +5,32 @@ import GranuleFilters from './GranuleFilters';
 import GranuleTable from './GranuleTable';
 import GranuleSearchButtonBar from './GranuleSearchButtonBar';
 import PendingJobList from './PendingJobList';
+import { Tabs } from './Tabs';
 
 export default function App() {
     return (
         <div className='App'>
             <h1>Hitide</h1>
             <main>
-                <section>
-                    <h2>Dataset Search</h2>
-                    <DatasetFilters />
-                    <DatasetTable />
-                </section>
-                <section>
-                    <h2>GranuleSearch</h2>
-                    <GranuleSearchDatasetTable />
-                    <GranuleFilters />
-                    <GranuleTable />
-                    <GranuleSearchButtonBar />
-                </section>
-                <section>
-                    <h2>Downloads</h2>
-                    <p>Review Pending Jobs</p>
-                    <PendingJobList />
-                </section>
+                <Tabs tabs={['Search Datasets', 'Search Granules', 'Downloads']}>
+                    <section>
+                        <h2>Dataset Search</h2>
+                        <DatasetFilters />
+                        <DatasetTable />
+                    </section>
+                    <section>
+                        <h2>GranuleSearch</h2>
+                        <GranuleSearchDatasetTable />
+                        <GranuleFilters />
+                        <GranuleTable />
+                        <GranuleSearchButtonBar />
+                    </section>
+                    <section>
+                        <h2>Downloads</h2>
+                        <p>Review Pending Jobs</p>
+                        <PendingJobList />
+                    </section>
+                </Tabs>
             </main>
 
             <style jsx>{`
