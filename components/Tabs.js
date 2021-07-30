@@ -27,11 +27,11 @@ export function Tabs({ tabs, children }) {
                 .TabButtonRow {
                     display: flex;
                     align-items: center;
-                    background-color: white;
+                    background-color: rgb(247, 247, 247);
                 }
 
                 .TabButton {
-                    border-bottom: 2px solid rgba(0, 0, 0, 0);
+                    border-bottom: 2px solid lightgray;
                     cursor: pointer;
                     flex: 1 1 0px;
                     text-align: center;

@@ -8,6 +8,7 @@ import PendingJobList from './PendingJobList';
 import { Tabs } from './Tabs';
 import { Drawer } from './Drawer';
 import { useState } from 'react';
+import { TitleBar } from './TitleBar';
 
 export default function App() {
     const [drawerOpen, setDrawerOpen] = useState(true);
@@ -16,6 +17,7 @@ export default function App() {
         <div className='App'>
             <button onClick={() => setDrawerOpen(!drawerOpen)}>Drawer</button>
             <Drawer isOpen={drawerOpen}>
+                <TitleBar onDrawerToggle={() => setDrawerOpen(!drawerOpen)} />
                 <Tabs tabs={['Search Datasets', 'Search Granules', 'Downloads']}>
                     <section>
                         <h2>Dataset Search</h2>
