@@ -10,7 +10,7 @@ export default function App() {
     return (
         <div className='App'>
             <h1>Hitide</h1>
-            <div className='App_horizontal'>
+            <main>
                 <section>
                     <h2>Dataset Search</h2>
                     <DatasetFilters />
@@ -28,7 +28,7 @@ export default function App() {
                     <p>Review Pending Jobs</p>
                     <PendingJobList />
                 </section>
-            </div>
+            </main>
 
             <style jsx>{`
                 .App {
@@ -36,11 +36,14 @@ export default function App() {
                     height: 100%;
                     width: 100%;
                     background-color: gray;
+                    display: flex;
+                    flex-direction: column;
                 }
 
-                .App_horizontal {
+                main {
                     display: flex;
-                    height: 100%;
+                    justify-content: space-around;
+                    flex-grow: 1;
                 }
 
                 section {
@@ -50,17 +53,17 @@ export default function App() {
                     padding: 0 1rem;
                     font-size: 0.8rem;
                     background-color: white;
-                    margin: 1px;
+                    overflow-y: scroll;
                 }
 
                 section > :global(*) {
-                    margin: 0.5rem;
+                    margin: 0.5rem 0;
                 }
 
                 h1 {
                     text-align: center;
                     background-color: lightsteelblue;
-                    margin: 1px;
+                    margin: 0px;
                 }
 
                 h2 {
