@@ -26,7 +26,7 @@ export function DatasetTable({ datasets, selectedDatasets, onFetchDatasets, onTo
                                         checked={!!selectedDatasets[ds.id]}
                                         onChange={() => onToggleDataset(ds.id)}
                                     />
-                                    <button>?</button>
+                                    <i className='fa fa-info-circle hitide-btn' aria-hidden='true'></i>
                                 </td>
                                 <td className='short-name'>{ds.shortName}</td>
                                 <td>{new Date(ds.startDate).toLocaleDateString()}</td>

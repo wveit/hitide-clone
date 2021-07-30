@@ -28,10 +28,16 @@ export function GranuleSearchDatasetTable({
                         <th>Name</th>
                         <th>Granule Count</th>
                         <th>
-                            <button onClick={onUnselectAllDatasets}>x</button>
+                            <span
+                                className='fa fa-download hitide-btn'
+                                aria-hidden='true'
+                                onClick={onDownloadAllGranules}
+                            />
                         </th>
                         <th>
-                            <button onClick={onDownloadAllGranules}>o</button>
+                            <span className='hitide-btn' onClick={onUnselectAllDatasets}>
+                                x
+                            </span>
                         </th>
                     </tr>
                 </thead>
@@ -45,24 +51,25 @@ export function GranuleSearchDatasetTable({
                             <td>{datasets[filter.datasetId].shortName}</td>
                             <td>{datasetGranuleCounts[filter.datasetId]}</td>
                             <td>
-                                <button
+                                <span
+                                    className='fa fa-download hitide-btn'
+                                    aria-hidden='true'
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        onDownloadAllGranulesForDataset(filter.datasetId);
+                                    }}
+                                />
+                            </td>
+                            <td>
+                                <span
+                                    className='hitide-btn'
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         onUnselectDataset(filter.datasetId);
                                     }}
                                 >
                                     x
-                                </button>
-                            </td>
-                            <td>
-                                <button
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        onDownloadAllGranulesForDataset(filter.datasetId);
-                                    }}
-                                >
-                                    o
-                                </button>
+                                </span>
                             </td>
                         </tr>
                     ))}

@@ -50,10 +50,30 @@ function GranuleTable({ granules, selectedGranuleFilter, selectedGranules, onSet
                             className={currentSelectedGranules[g.id] ? 'selected' : ''}
                         >
                             <td>
-                                <button onClick={(e) => e.stopPropagation()}>f</button>
+                                <span
+                                    className='fas fa-draw-polygon hitide-btn'
+                                    style={{
+                                        color: 'white',
+                                        backgroundColor: 'gray',
+                                        borderRadius: 2,
+                                        padding: 2,
+                                        fontSize: '1.2rem',
+                                    }}
+                                    onClick={(e) => e.stopPropagation()}
+                                ></span>
                             </td>
                             <td>
-                                <button onClick={(e) => e.stopPropagation()}>i</button>
+                                <span
+                                    className='far fa-image hitide-btn'
+                                    style={{
+                                        color: 'white',
+                                        backgroundColor: 'gray',
+                                        borderRadius: 2,
+                                        padding: 2,
+                                        fontSize: '1.2rem',
+                                    }}
+                                    onClick={(e) => e.stopPropagation()}
+                                ></span>
                             </td>
                             <td>{g.name}</td>
                             <td>{g.startDate}</td>
