@@ -15,9 +15,15 @@ export function Tabs({ tabs, children }) {
                     </div>
                 ))}
             </div>
-            <div className='TabContent>'>{children[selectedTab]}</div>
+            <div className='TabContent'>{children[selectedTab]}</div>
 
             <style jsx>{`
+                .TabContainer {
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                }
+
                 .TabButtonRow {
                     display: flex;
                     align-items: center;
@@ -34,6 +40,10 @@ export function Tabs({ tabs, children }) {
 
                 .TabButton.selected {
                     border-bottom: 2px solid rgb(172, 31, 43);
+                }
+
+                .TabContent {
+                    min-height: 0; /* for some reason needed to keep TabContent from overflowing */
                 }
             `}</style>
         </div>
