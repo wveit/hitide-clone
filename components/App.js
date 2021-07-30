@@ -9,12 +9,14 @@ import { Tabs } from './Tabs';
 import { Drawer, DrawerToggle } from './Drawer';
 import { useState } from 'react';
 import { TitleBar } from './TitleBar';
+import { Map } from './Map';
 
 export default function App() {
     const [drawerOpen, setDrawerOpen] = useState(true);
 
     return (
         <div className='App'>
+            <Map />
             <DrawerToggle onClick={() => setDrawerOpen(!drawerOpen)} />
             <Drawer isOpen={drawerOpen}>
                 <TitleBar onDrawerToggle={() => setDrawerOpen(!drawerOpen)} />
