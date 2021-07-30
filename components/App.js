@@ -6,7 +6,7 @@ import GranuleTable from './GranuleTable';
 import GranuleSearchButtonBar from './GranuleSearchButtonBar';
 import PendingJobList from './PendingJobList';
 import { Tabs } from './Tabs';
-import { Drawer } from './Drawer';
+import { Drawer, DrawerToggle } from './Drawer';
 import { useState } from 'react';
 import { TitleBar } from './TitleBar';
 
@@ -15,7 +15,7 @@ export default function App() {
 
     return (
         <div className='App'>
-            <button onClick={() => setDrawerOpen(!drawerOpen)}>Drawer</button>
+            <DrawerToggle onClick={() => setDrawerOpen(!drawerOpen)} />
             <Drawer isOpen={drawerOpen}>
                 <TitleBar onDrawerToggle={() => setDrawerOpen(!drawerOpen)} />
                 <Tabs tabs={['Search Datasets', 'Search Granules', 'Downloads']}>

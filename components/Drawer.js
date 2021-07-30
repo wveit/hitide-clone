@@ -25,3 +25,22 @@ export function Drawer({ children, isOpen, width: propsWidth }) {
         </div>
     );
 }
+
+export function DrawerToggle({ onClick }) {
+    return (
+        <div className='fas fa-bars' onClick={onClick}>
+            <style jsx>{`
+                div {
+                    position: absolute;
+                    top: 0.5rem;
+                    right: 0.5rem;
+                    cursor: pointer;
+                    font-size: 1.3rem;
+                }
+                div:hover {
+                    color: rgb(116, 155, 206);
+                }
+            `}</style>
+        </div>
+    );
+}
