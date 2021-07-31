@@ -9,7 +9,7 @@ import { Tabs } from './Tabs';
 import { Drawer, DrawerToggle } from './Drawer';
 import { useState } from 'react';
 import { TitleBar } from './TitleBar';
-import { Map } from './Map';
+import Map from './Map';
 
 export default function App() {
     const [drawerOpen, setDrawerOpen] = useState(true);
