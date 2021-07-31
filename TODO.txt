@@ -1,0 +1,23 @@
+- Modify FootprintLayer to handle ENVELOPE type
+- Display layer metadata
+- Retrieve variables, image variables, and palettes
+- Display preview images for granules
+- Submit subset jobs
+- Get status of pending jobs until they complete
+- Store and display download history
+- Save state in url
+- Load state from url on startup
+- Save ALL_DATASETS, so you don't get situation where you try to access metadata even though it's no longer loaded
+- Display PODAAC logo/link
+- Display legends and opacity
+- Improve lists
+- Make Granule Filter work
+- Make dataset sorting work
+- Make granule sorting work
+- Make loading more granules work
+- Error handling... (add more details)
+- Query CMR
+- Use hitide-profile???
+- Submit subset jobs to harmony
+- Facet filtering for datasets
+- Showing footprints in different colors depending on dataset
