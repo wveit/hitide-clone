@@ -3,7 +3,6 @@ import { selectPendingJobs } from '../state/pendingJobSlice';
 import { selectDatasets } from '../state/datasetSearchSlice';
 
 function PendingJobList({ pendingJobs, datasets }) {
-    console.log('pendingJobs', pendingJobs);
     return (
         <div className='container'>
             {Object.values(pendingJobs).map((job) => (

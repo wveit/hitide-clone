@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import { doAddPendingJob } from '../state/pendingJobActions';
 
 function GranuleSearchButtonBar({ onAddJob }) {
-    console.log(onAddJob);
     return (
         <div>
             <button onClick={onAddJob}>Add Selected Granules</button>

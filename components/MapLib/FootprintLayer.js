@@ -1,25 +1,20 @@
 import { MapContext } from './Map';
 import { useContext, useEffect, useState } from 'react';
-import { createBboxLayer, bboxToPolygon } from './util';
+import { createWktLayer } from './util';
 
-export function BboxLayer({ bbox }) {
+export function FootprintLayer({ footprint }) {
     const map = useContext(MapContext);
     const [layer, setLayer] = useState();
 
     useEffect(() => {
         if (!map) return;
-        const _layer = createBboxLayer([-50, -50, 50, 50]);
+        const _layer = createWktLayer(footprint);
         setLayer(_layer);
         map.addLayer(_layer);
         window.layer = _layer;
 
         return () => map.removeLayer(_layer);
-    }, [map]);
-
-    useEffect(() => {
-        if (!layer) return;
-        layer._hitide__feature.setGeometry(bboxToPolygon(bbox));
-    }, [bbox, layer]);
+    }, [map, footprint]);
 
     return null;
 }

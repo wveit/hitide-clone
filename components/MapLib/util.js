@@ -7,8 +7,24 @@ import Feature from 'ol/Feature';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Polygon } from 'ol/geom';
+import WKT from 'ol/format/WKT';
 
 import { Style, Stroke } from 'ol/style';
+
+export function createWktLayer(wkt) {
+    const format = new WKT();
+    const feature = format.readFeature(wkt, {
+        // dataProjection: 'EPSG:4326',
+        // featureProjection: 'EPSG:3857',
+    });
+    const layer = new VectorLayer({
+        source: new VectorSource({
+            features: [feature],
+            wrapX: false,
+        }),
+    });
+    return layer;
+}
 
 export function createMap() {
     const layers = [];

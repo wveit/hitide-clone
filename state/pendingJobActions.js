@@ -3,7 +3,6 @@ import { selectCurrentGranuleFilter, selectSelectedGranules } from './granuleSea
 import { selectBbox } from './datasetSearchSlice';
 
 export const doAddPendingJob = () => (dispatch, getState) => {
-    console.log('doAddPendingJob');
     const id = new Date().getTime();
     const state = getState();
     const datasetId = selectCurrentGranuleFilter(state);

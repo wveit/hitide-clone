@@ -11,3 +11,7 @@ export const BaseLayer = dynamic(() => import('./BaseLayer').then((mod) => mod.B
 export const BboxLayer = dynamic(() => import('./BboxLayer').then((mod) => mod.BboxLayer), {
     ssr: false,
 });
+
+export const FootprintLayer = dynamic(() => import('./FootprintLayer').then((mod) => mod.FootprintLayer), {
+    ssr: false,
+});
