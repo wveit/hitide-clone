@@ -1,16 +1,11 @@
 import { useEffect } from 'react';
-import { createMap, createBboxLayer, createBackgroundLayer } from './util';
+import { createMap } from './util';
 
-export function Map({ bbox }) {
-    console.log(bbox);
+export function SimpleMap({ onMapCreate }) {
     useEffect(() => {
-        let map = createMap();
-        const bgLayer = createBackgroundLayer();
-        const bboxLayer = createBboxLayer(bbox);
-        map.addLayer(bgLayer);
-        map.addLayer(bboxLayer);
-        window.map = map;
-    }, [bbox]);
+        const map = createMap();
+        onMapCreate(map);
+    }, [onMapCreate]);
 
     return (
         <div id='map' className='Map'>

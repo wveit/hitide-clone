@@ -26,12 +26,8 @@ export function createMap() {
     return map;
 }
 
-export function createBboxLayer(bbox) {
-    const myStyle = new Style({
-        stroke: new Stroke({ color: 'red', width: 3 }),
-    });
-
-    const polygon = new Polygon([
+export function bboxToPolygon(bbox) {
+    return new Polygon([
         [
             [bbox[0], bbox[1]],
             [bbox[2], bbox[1]],
@@ -39,6 +35,14 @@ export function createBboxLayer(bbox) {
             [bbox[0], bbox[3]],
         ],
     ]);
+}
+
+export function createBboxLayer(bbox) {
+    const myStyle = new Style({
+        stroke: new Stroke({ color: 'red', width: 3 }),
+    });
+
+    const polygon = bboxToPolygon(bbox);
 
     const feature = new Feature({
         geometry: polygon,
@@ -52,6 +56,8 @@ export function createBboxLayer(bbox) {
         }),
         style: myStyle,
     });
+
+    layer._hitide__feature = feature;
 
     return layer;
 }
