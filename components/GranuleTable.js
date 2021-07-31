@@ -4,9 +4,20 @@ import {
     selectGranules,
     doSetSelectedGranueles,
     selectSelectedGranules,
+    selectFootprintGranules,
+    doAddFootprintGranule,
+    doRemoveFootprintGranule,
 } from '../state/granuleSearchSlice';
 
-function GranuleTable({ granules, selectedGranuleFilter, selectedGranules, onSetSelectedGranules }) {
+function GranuleTable({
+    granules,
+    selectedGranuleFilter,
+    selectedGranules,
+    onSetSelectedGranules,
+    footprintGranules,
+    onRemoveSelectedFootprint,
+    onAddSelectedFootprint,
+}) {
     let granuleArray = [];
     if (selectedGranuleFilter) granuleArray = Object.values(granules[selectedGranuleFilter]);
 
@@ -42,44 +53,43 @@ function GranuleTable({ granules, selectedGranuleFilter, selectedGranules, onSet
                     </tr>
                 </thead>
                 <tbody>
-                    {granuleArray.map((g) => (
-                        <tr
-                            key={g.id}
-                            onClick={handleClick}
-                            data-granule-id={g.id}
-                            className={currentSelectedGranules[g.id] ? 'selected' : ''}
-                        >
-                            <td>
-                                <span
-                                    className='fas fa-draw-polygon hitide-btn'
-                                    style={{
-                                        color: 'white',
-                                        backgroundColor: 'gray',
-                                        borderRadius: 2,
-                                        padding: 2,
-                                        fontSize: '1.2rem',
-                                    }}
-                                    onClick={(e) => e.stopPropagation()}
-                                ></span>
-                            </td>
-                            <td>
-                                <span
-                                    className='far fa-image hitide-btn'
-                                    style={{
-                                        color: 'white',
-                                        backgroundColor: 'gray',
-                                        borderRadius: 2,
-                                        padding: 2,
-                                        fontSize: '1.2rem',
-                                    }}
-                                    onClick={(e) => e.stopPropagation()}
-                                ></span>
-                            </td>
-                            <td>{g.name}</td>
-                            <td>{g.startDate}</td>
-                            <td>{g.endDate}</td>
-                        </tr>
-                    ))}
+                    {granuleArray.map((g) => {
+                        const footprintSelected = footprintGranules[datasetId][g.id];
+                        return (
+                            <tr
+                                key={g.id}
+                                onClick={handleClick}
+                                data-granule-id={g.id}
+                                className={currentSelectedGranules[g.id] ? 'selected' : ''}
+                            >
+                                <td>
+                                    <span
+                                        className={
+                                            'fas fa-draw-polygon hitide-btn footprint' +
+                                            (footprintSelected ? ' selected' : '')
+                                        }
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            if (footprintSelected) {
+                                                onRemoveSelectedFootprint({ datasetId, granuleId: g.id });
+                                            } else {
+                                                onAddSelectedFootprint({ datasetId, granuleId: g.id });
+                                            }
+                                        }}
+                                    ></span>
+                                </td>
+                                <td>
+                                    <span
+                                        className='far fa-image hitide-btn image'
+                                        onClick={(e) => e.stopPropagation()}
+                                    ></span>
+                                </td>
+                                <td>{g.name}</td>
+                                <td>{g.startDate}</td>
+                                <td>{g.endDate}</td>
+                            </tr>
+                        );
+                    })}
                 </tbody>
             </table>
 
@@ -94,6 +104,19 @@ function GranuleTable({ granules, selectedGranuleFilter, selectedGranules, onSet
                 .selected {
                     background-color: lightgray;
                 }
+
+                .footprint,
+                .image {
+                    color: white;
+                    background-color: gray;
+                    border-radius: 2;
+                    padding: 2px;
+                    font-size: 1.2rem;
+                }
+
+                .hitide-btn.selected {
+                    background-color: violet;
+                }
             `}</style>
         </div>
     );
@@ -104,11 +127,14 @@ function select(state) {
         granules: selectGranules(state),
         selectedGranuleFilter: selectCurrentGranuleFilter(state),
         selectedGranules: selectSelectedGranules(state),
+        footprintGranules: selectFootprintGranules(state),
     };
 }
 
 const actions = {
     onSetSelectedGranules: doSetSelectedGranueles,
+    onAddSelectedFootprint: doAddFootprintGranule,
+    onRemoveSelectedFootprint: doRemoveFootprintGranule,
 };
 
 export default connect(select, actions)(GranuleTable);

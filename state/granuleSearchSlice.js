@@ -4,6 +4,7 @@ const initialState = {
     granules: {},
     filters: {},
     selectedGranules: {},
+    footprintGranules: {},
     currentFilter: null,
 };
 
@@ -23,12 +24,14 @@ const slice = createSlice({
             state.currentFilter = datasetId;
             state.granules[datasetId] = {};
             state.selectedGranules[datasetId] = {};
+            state.footprintGranules[datasetId] = {};
         },
         doDeleteGranuleFilter(state, action) {
             const datasetId = action.payload;
             delete state.filters[datasetId];
             delete state.granules[datasetId];
             delete state.selectedGranules[datasetId];
+            delete state.footprintGranules[datasetId];
             const filterArray = Object.keys(state.filters);
             if (filterArray.length == 0) {
                 state.currentFilter = null;
@@ -41,6 +44,7 @@ const slice = createSlice({
             state.currentFilter = null;
             state.granules = {};
             state.selectedGranules = {};
+            state.footprintGranules = {};
         },
         doSetCurrentGranuleFilter(state, action) {
             state.currentFilter = action.payload;
@@ -53,6 +57,14 @@ const slice = createSlice({
             const { datasetId, selectedGranules } = action.payload;
             state.selectedGranules[datasetId] = selectedGranules;
         },
+        doAddFootprintGranule(state, action) {
+            const { datasetId, granuleId } = action.payload;
+            state.footprintGranules[datasetId][granuleId] = true;
+        },
+        doRemoveFootprintGranule(state, action) {
+            const { datasetId, granuleId } = action.payload;
+            delete state.footprintGranules[datasetId][granuleId];
+        },
     },
 });
 
@@ -64,9 +76,12 @@ export const {
     doSetCurrentGranuleFilter,
     doAddGranules,
     doSetSelectedGranueles,
+    doAddFootprintGranule,
+    doRemoveFootprintGranule,
 } = slice.actions;
 
 export const selectGranuleFilters = (state) => state.granuleSearch.filters;
 export const selectCurrentGranuleFilter = (state) => state.granuleSearch.currentFilter;
 export const selectGranules = (state) => state.granuleSearch.granules;
 export const selectSelectedGranules = (state) => state.granuleSearch.selectedGranules;
+export const selectFootprintGranules = (state) => state.granuleSearch.footprintGranules;
