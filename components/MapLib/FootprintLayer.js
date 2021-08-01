@@ -8,7 +8,9 @@ export function FootprintLayer({ footprint }) {
 
     useEffect(() => {
         if (!map) return;
-        const _layer = createWktLayer(footprint);
+        let _footprint = footprint;
+        if (footprint.search(/envelope/i) >= 0) _footprint = convertEnvelopeToMultipolygon(_footprint);
+        const _layer = createWktLayer(_footprint);
         setLayer(_layer);
         map.addLayer(_layer);
         window.layer = _layer;
@@ -17,4 +19,12 @@ export function FootprintLayer({ footprint }) {
     }, [map, footprint]);
 
     return null;
+}
+
+function convertEnvelopeToMultipolygon(envelopeString) {
+    const openParenIndex = envelopeString.indexOf('(');
+    const closeParenIndex = envelopeString.indexOf(')');
+    const numberString = envelopeString.slice(openParenIndex + 1, closeParenIndex);
+    const [west, east, north, south] = numberString.split(',').map((str) => Number(str.trim()));
+    return `MULTIPOLYGON (((${west} ${north}, ${west} ${south}, ${east} ${south}, ${east} ${north}, ${west} ${north})))`;
 }
