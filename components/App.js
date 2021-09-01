@@ -10,6 +10,7 @@ import { Drawer, DrawerToggle } from './Drawer';
 import { useState } from 'react';
 import { TitleBar } from './TitleBar';
 import HitideMap from './HitideMap';
+import DatasetGranuleCounts from './DatasetGranuleCounts';
 
 export default function App() {
     const [drawerOpen, setDrawerOpen] = useState(true);
@@ -25,7 +26,8 @@ export default function App() {
                         <h2>Dataset Search</h2>
                         <DatasetFilters />
                         <DatasetTable />
-                        <div></div>
+                        <h4>Selected Datasets</h4>
+                        <DatasetGranuleCounts />
                     </section>
                     <section>
                         <h2>GranuleSearch</h2>
