@@ -5,8 +5,11 @@ import {
     doSetSelectedGranueles,
     selectSelectedGranules,
     selectFootprintGranuleIds,
+    selectPreviewGranuleIds,
     doAddFootprintGranule,
     doRemoveFootprintGranule,
+    doAddPreviewGranule,
+    doRemovePreviewGranule,
 } from '../state/granuleSearchSlice';
 
 function format(date) {
@@ -21,8 +24,11 @@ function GranuleTable({
     selectedGranules,
     onSetSelectedGranules,
     footprintGranules,
+    previewGranules,
     onRemoveSelectedFootprint,
     onAddSelectedFootprint,
+    onRemoveSelectedPreview,
+    onAddSelectedPreview,
 }) {
     let granuleArray = [];
     if (selectedGranuleFilter) granuleArray = Object.values(granules[selectedGranuleFilter]);
@@ -58,6 +64,7 @@ function GranuleTable({
             <div className='data-container'>
                 {granuleArray.map((g) => {
                     const footprintSelected = footprintGranules[datasetId][g.id];
+                    const previewSelected = previewGranules[datasetId][g.id];
                     return (
                         <div
                             key={g.id}
@@ -83,8 +90,15 @@ function GranuleTable({
                             </div>
                             <div>
                                 <span
-                                    className='far fa-image hitide-btn image'
-                                    onClick={(e) => e.stopPropagation()}
+                                    className={'far fa-image hitide-btn image' + (previewSelected ? ' selected' : '')}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        if (previewSelected) {
+                                            onRemoveSelectedPreview({ datasetId, granuleId: g.id });
+                                        } else {
+                                            onAddSelectedPreview({ datasetId, granuleId: g.id });
+                                        }
+                                    }}
                                 ></span>
                             </div>
                             <div>{g.name}</div>
@@ -152,6 +166,7 @@ function select(state) {
         selectedGranuleFilter: selectCurrentGranuleFilter(state),
         selectedGranules: selectSelectedGranules(state),
         footprintGranules: selectFootprintGranuleIds(state),
+        previewGranules: selectPreviewGranuleIds(state),
     };
 }
 
@@ -159,6 +174,8 @@ const actions = {
     onSetSelectedGranules: doSetSelectedGranueles,
     onAddSelectedFootprint: doAddFootprintGranule,
     onRemoveSelectedFootprint: doRemoveFootprintGranule,
+    onAddSelectedPreview: doAddPreviewGranule,
+    onRemoveSelectedPreview: doRemovePreviewGranule,
 };
 
 export default connect(select, actions)(GranuleTable);
