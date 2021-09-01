@@ -25,3 +25,4 @@
 
 ✅ Modify FootprintLayer to handle ENVELOPE type
 ✅ Modify the key that is used for FootprintLayers. Some granules have the same footprint, so key is same for different layers.
+✅ Set DateRange and Region via modals

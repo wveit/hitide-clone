@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
 import { Modal } from './Modal';
 
 export function BoundingBoxModal({ show, bbox, onNewBbox, onReset, onClose }) {
@@ -45,5 +44,3 @@ export function BoundingBoxModal({ show, bbox, onNewBbox, onReset, onClose }) {
         </Modal>
     );
 }
-
-export default connect()(BoundingBoxModal);
