@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createSelector } from '@reduxjs/toolkit';
 
 const initialState = {
     granules: {},
@@ -84,4 +84,20 @@ export const selectGranuleFilters = (state) => state.granuleSearch.filters;
 export const selectCurrentGranuleFilter = (state) => state.granuleSearch.currentFilter;
 export const selectGranules = (state) => state.granuleSearch.granules;
 export const selectSelectedGranules = (state) => state.granuleSearch.selectedGranules;
-export const selectFootprintGranules = (state) => state.granuleSearch.footprintGranules;
+export const selectFootprintGranuleIds = (state) => state.granuleSearch.footprintGranules;
+
+export const selectFootprintGranuleList = createSelector(
+    selectFootprintGranuleIds,
+    selectGranules,
+    (footprintGranuleIds, granules) => {
+        const footprintGranules = [];
+
+        Object.keys(footprintGranuleIds).forEach((datasetId) => {
+            Object.keys(footprintGranuleIds[datasetId]).forEach((granuleId) => {
+                footprintGranules.push(granules[datasetId][granuleId]);
+            });
+        });
+
+        return footprintGranules;
+    }
+);

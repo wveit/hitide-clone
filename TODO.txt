@@ -1,5 +1,4 @@
 
-- Modify the key that is used for FootprintLayers. Some granules have the same footprint, so key is same for different layers.
 - Display layer metadata
 - Retrieve variables, image variables, and palettes
 - Display preview images for granules
@@ -25,3 +24,4 @@
 
 
 ✅ Modify FootprintLayer to handle ENVELOPE type
+✅ Modify the key that is used for FootprintLayers. Some granules have the same footprint, so key is same for different layers.

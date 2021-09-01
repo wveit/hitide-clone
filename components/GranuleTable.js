@@ -4,7 +4,7 @@ import {
     selectGranules,
     doSetSelectedGranueles,
     selectSelectedGranules,
-    selectFootprintGranules,
+    selectFootprintGranuleIds,
     doAddFootprintGranule,
     doRemoveFootprintGranule,
 } from '../state/granuleSearchSlice';
@@ -127,7 +127,7 @@ function select(state) {
         granules: selectGranules(state),
         selectedGranuleFilter: selectCurrentGranuleFilter(state),
         selectedGranules: selectSelectedGranules(state),
-        footprintGranules: selectFootprintGranules(state),
+        footprintGranules: selectFootprintGranuleIds(state),
     };
 }
 
