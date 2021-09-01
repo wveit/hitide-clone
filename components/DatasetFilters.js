@@ -9,6 +9,7 @@ import {
     doSetBbox,
 } from '../state/datasetSearchSlice';
 import { doFetchDatasets } from '../state/datasetActions';
+import { BoundingBoxModal } from './BoundingBoxModal';
 
 function formatDate(dateNumber) {
     if (!dateNumber) return 'none';
@@ -19,7 +20,7 @@ function formatDate(dateNumber) {
 function DatasetFilters({ startDate, onSetStartDate, endDate, onSetEndDate, bbox, onSetBbox, onFetchDatasets }) {
     const [start, setStart] = useState(formatDate(startDate));
     const [end, setEnd] = useState(formatDate(endDate));
-    const [box, setBox] = useState(JSON.stringify(bbox));
+    const [showBboxModal, setShowBboxModal] = useState(false);
 
     useEffect(() => onFetchDatasets(), [onFetchDatasets]);
 
@@ -41,14 +42,14 @@ function DatasetFilters({ startDate, onSetStartDate, endDate, onSetEndDate, bbox
                 <button onClick={() => onSetEndDate(end)}>Update</button>
                 <button onClick={() => setEnd(formatDate(endDate))}>Reset</button>
             </div>
-            <div>
-                <label>
-                    Bounding Box
-                    <input type='text' value={box} onChange={(event) => setBox(event.target.value)} />
-                </label>
-                <button onClick={() => onSetBbox(JSON.parse(box))}>Update</button>
-                <button onClick={() => setBox(JSON.stringify(bbox))}>Reset</button>
-            </div>
+            <button onClick={() => setShowBboxModal(true)}>Edit Bbox</button>
+            <BoundingBoxModal
+                show={showBboxModal}
+                bbox={bbox}
+                onClose={() => setShowBboxModal(false)}
+                onNewBbox={onSetBbox}
+                onReset={() => onSetBbox([-180, -90, 180, 90])}
+            />
         </div>
     );
 }
