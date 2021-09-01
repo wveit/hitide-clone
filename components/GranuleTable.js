@@ -9,6 +9,12 @@ import {
     doRemoveFootprintGranule,
 } from '../state/granuleSearchSlice';
 
+function format(date) {
+    if (typeof date !== 'string') return date;
+    const newDate = date.substring(0, 16);
+    return newDate;
+}
+
 function GranuleTable({
     granules,
     selectedGranuleFilter,
@@ -26,8 +32,8 @@ function GranuleTable({
 
     function handleClick(e) {
         e.stopPropagation();
-        const tr = e.target.closest('tr');
-        const granuleId = tr.dataset['granuleId'];
+        const row = e.target.closest('.row');
+        const granuleId = row.dataset['granuleId'];
         if (e.shiftKey) {
             // handle range select
             // TODO
@@ -42,80 +48,98 @@ function GranuleTable({
 
     return (
         <div className='container'>
-            <table>
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th>Name</th>
-                        <th>Start Time</th>
-                        <th>End Time</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {granuleArray.map((g) => {
-                        const footprintSelected = footprintGranules[datasetId][g.id];
-                        return (
-                            <tr
-                                key={g.id}
-                                onClick={handleClick}
-                                data-granule-id={g.id}
-                                className={currentSelectedGranules[g.id] ? 'selected' : ''}
-                            >
-                                <td>
-                                    <span
-                                        className={
-                                            'fas fa-draw-polygon hitide-btn footprint' +
-                                            (footprintSelected ? ' selected' : '')
+            <div className='row header'>
+                <div></div>
+                <div></div>
+                <div>Name</div>
+                <div>Start Time</div>
+                <div>End Time</div>
+            </div>
+            <div className='data-container'>
+                {granuleArray.map((g) => {
+                    const footprintSelected = footprintGranules[datasetId][g.id];
+                    return (
+                        <div
+                            key={g.id}
+                            onClick={handleClick}
+                            data-granule-id={g.id}
+                            className={'row ' + (currentSelectedGranules[g.id] ? 'selected' : '')}
+                        >
+                            <div>
+                                <span
+                                    className={
+                                        'fas fa-draw-polygon hitide-btn footprint' +
+                                        (footprintSelected ? ' selected' : '')
+                                    }
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        if (footprintSelected) {
+                                            onRemoveSelectedFootprint({ datasetId, granuleId: g.id });
+                                        } else {
+                                            onAddSelectedFootprint({ datasetId, granuleId: g.id });
                                         }
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            if (footprintSelected) {
-                                                onRemoveSelectedFootprint({ datasetId, granuleId: g.id });
-                                            } else {
-                                                onAddSelectedFootprint({ datasetId, granuleId: g.id });
-                                            }
-                                        }}
-                                    ></span>
-                                </td>
-                                <td>
-                                    <span
-                                        className='far fa-image hitide-btn image'
-                                        onClick={(e) => e.stopPropagation()}
-                                    ></span>
-                                </td>
-                                <td>{g.name}</td>
-                                <td>{g.startDate}</td>
-                                <td>{g.endDate}</td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
+                                    }}
+                                ></span>
+                            </div>
+                            <div>
+                                <span
+                                    className='far fa-image hitide-btn image'
+                                    onClick={(e) => e.stopPropagation()}
+                                ></span>
+                            </div>
+                            <div>{g.name}</div>
+                            <div>{format(g.startDate)}</div>
+                            <div>{format(g.endDate)}</div>
+                        </div>
+                    );
+                })}
+            </div>
 
             <style jsx>{`
                 .container {
                     width: 100%;
                     height: 300px;
-                    overflow-y: scroll;
                     border: 1px solid gray;
+                    display: inline-flex;
+                    flex-direction: column;
+                    cursor: default;
+                }
+
+                .data-container {
+                    overflow-y: scroll;
+                }
+
+                .row {
+                    width: 100%;
+                    display: grid;
+                    font-size: 0.7rem;
+                    grid-template-columns: 2rem 2rem 1fr 8rem 8rem;
+                    padding: 0.2rem 0;
+                }
+
+                .row > div {
+                    padding: 0.3rem;
+                    word-break: break-all;
+                }
+
+                .row.header {
+                    background-color: lightblue;
                 }
 
                 .selected {
-                    background-color: lightgray;
+                    background-color: rgb(238, 238, 238);
                 }
 
                 .footprint,
                 .image {
-                    color: white;
-                    background-color: gray;
+                    color: gray;
                     border-radius: 2;
-                    padding: 2px;
+                    padding: 1px;
                     font-size: 1.2rem;
                 }
 
                 .hitide-btn.selected {
-                    background-color: violet;
+                    color: violet;
                 }
             `}</style>
         </div>
