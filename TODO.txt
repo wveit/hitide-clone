@@ -20,10 +20,11 @@
 - Use hitide-profile???
 - Submit subset jobs to harmony
 - Facet filtering for datasets
-- Showing footprints in different colors depending on dataset
 
 
 ✅ Modify FootprintLayer to handle ENVELOPE type
 ✅ Modify the key that is used for FootprintLayers. Some granules have the same footprint, so key is same for different layers.
 ✅ Set DateRange and Region via modals
 ✅ Show dataset granule counts in datasets section
+✅ Improve Tables on Granules section
+✅ Showing footprints in different colors depending on dataset

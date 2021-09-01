@@ -2,7 +2,8 @@ import { MapContext } from './Map';
 import { useContext, useEffect, useState } from 'react';
 import { createWktLayer } from './util';
 
-export function FootprintLayer({ footprint }) {
+export function FootprintLayer({ footprint, color }) {
+    console.log(color);
     const map = useContext(MapContext);
     const [layer, setLayer] = useState();
 
@@ -10,13 +11,13 @@ export function FootprintLayer({ footprint }) {
         if (!map) return;
         let _footprint = footprint;
         if (footprint.search(/envelope/i) >= 0) _footprint = convertEnvelopeToMultipolygon(_footprint);
-        const _layer = createWktLayer(_footprint);
+        const _layer = createWktLayer(_footprint, color);
         setLayer(_layer);
         map.addLayer(_layer);
         window.layer = _layer;
 
         return () => map.removeLayer(_layer);
-    }, [map, footprint]);
+    }, [map, footprint, color]);
 
     return null;
 }

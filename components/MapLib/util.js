@@ -11,7 +11,7 @@ import WKT from 'ol/format/WKT';
 
 import { Style, Stroke } from 'ol/style';
 
-export function createWktLayer(wkt) {
+export function createWktLayer(wkt, color) {
     const format = new WKT();
     const feature = format.readFeature(wkt, {
         // dataProjection: 'EPSG:4326',
@@ -21,6 +21,12 @@ export function createWktLayer(wkt) {
         source: new VectorSource({
             features: [feature],
             wrapX: false,
+        }),
+        style: new Style({
+            stroke: new Stroke({
+                color: color,
+                width: 2,
+            }),
         }),
     });
     return layer;
