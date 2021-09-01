@@ -19,6 +19,3 @@ export const colors = [
 export function getColor(index) {
     return colors[index % colors.length];
 }
-
-console.log(getColor(5));
-console.log(getColor(99));

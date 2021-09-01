@@ -1,4 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createSelector } from '@reduxjs/toolkit';
+import { getColor } from '../utils/colors';
 
 const initialState = {
     datasets: {},
@@ -60,3 +61,10 @@ export const selectEndDate = (state) => state.datasetSearch.endDate;
 export const selectBbox = (state) => state.datasetSearch.bbox;
 export const selectSelectedDatasets = (state) => state.datasetSearch.selectedDatasets;
 export const selectDatasetGranuleCounts = (state) => state.datasetSearch.granuleCounts;
+export const selectDatasetColors = createSelector(selectDatasets, (datasets) => {
+    const colors = {};
+    Object.keys(datasets).forEach((datasetId, index) => {
+        colors[datasetId] = getColor(index);
+    });
+    return colors;
+});

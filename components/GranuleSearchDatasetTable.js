@@ -4,9 +4,8 @@ import {
     selectCurrentGranuleFilter,
     selectGranuleFilters,
 } from '../state/granuleSearchSlice';
-import { selectDatasets, selectDatasetGranuleCounts } from '../state/datasetSearchSlice';
+import { selectDatasets, selectDatasetGranuleCounts, selectDatasetColors } from '../state/datasetSearchSlice';
 import { doUnselectDatasetProcess, doUnselectAllDatasetsProcess } from '../state/datasetActions';
-import { getColor } from '../utils/colors';
 
 export function GranuleSearchDatasetTable({
     granuleFilters,
@@ -18,6 +17,7 @@ export function GranuleSearchDatasetTable({
     onDownloadAllGranules,
     currentGranuleFilter,
     onGranuleFilterSelect,
+    datasetColors,
 }) {
     const granuleFilterArray = Object.values(granuleFilters);
 
@@ -30,7 +30,7 @@ export function GranuleSearchDatasetTable({
                 <div className='far fa-times-circle hitide-btn' onClick={onUnselectAllDatasets} />
             </div>
             <div className='data-container'>
-                {granuleFilterArray.map((filter, index) => (
+                {granuleFilterArray.map((filter) => (
                     <div
                         key={filter.datasetId}
                         className={'row ' + (currentGranuleFilter === filter.datasetId ? 'selected' : '')}
@@ -40,7 +40,7 @@ export function GranuleSearchDatasetTable({
                             <div
                                 className='color-circle'
                                 style={{
-                                    backgroundColor: getColor(index),
+                                    backgroundColor: datasetColors[filter.datasetId],
                                 }}
                             />
                             {datasets[filter.datasetId].shortName}
@@ -111,6 +111,7 @@ function select(state) {
         datasets: selectDatasets(state),
         datasetGranuleCounts: selectDatasetGranuleCounts(state),
         currentGranuleFilter: selectCurrentGranuleFilter(state),
+        datasetColors: selectDatasetColors(state),
     };
 }
 
