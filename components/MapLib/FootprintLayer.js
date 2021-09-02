@@ -3,7 +3,6 @@ import { useContext, useEffect, useState } from 'react';
 import { createWktLayer } from './util';
 
 export function FootprintLayer({ footprint, color }) {
-    console.log(color);
     const map = useContext(MapContext);
     const [layer, setLayer] = useState();
 

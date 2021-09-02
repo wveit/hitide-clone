@@ -116,3 +116,19 @@ export const selectFootprintGranuleList = createSelector(
         return footprintGranules;
     }
 );
+
+export const selectPreviewGranuleList = createSelector(
+    selectPreviewGranuleIds,
+    selectGranules,
+    (previewGranuleIds, granules) => {
+        const previewGranules = [];
+
+        Object.keys(previewGranuleIds).forEach((datasetId) => {
+            Object.keys(previewGranuleIds[datasetId]).forEach((granuleId) => {
+                previewGranules.push(granules[datasetId][granuleId]);
+            });
+        });
+
+        return previewGranules;
+    }
+);
