@@ -29,6 +29,8 @@ export function ImageLayer({ imageUrl, wktExtent }) {
 
 function convertExtent(wkt) {
     const numbers = wkt.match(/-?(\d+\.?\d*)|(\.?\d+)/g).map(Number);
-    const extent = [numbers[0], numbers[1], numbers[4], numbers[5]];
+    let extent;
+    if (numbers.length === 10) extent = [numbers[0], numbers[1], numbers[4], numbers[5]];
+    else extent = [numbers[0], numbers[3], numbers[1], numbers[2]];
     return extent;
 }
