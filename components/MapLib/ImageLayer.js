@@ -12,10 +12,12 @@ export function ImageLayer({ imageUrl, wktExtent }) {
         const extent = convertExtent(wktExtent);
 
         const layer = new ImgLayer({
+            zIndex: 1,
             source: new Static({
                 url: imageUrl,
                 projection: 'EPSG:4326',
                 imageExtent: extent,
+                imageSmoothing: false,
             }),
         });
 
