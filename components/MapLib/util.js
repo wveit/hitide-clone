@@ -18,6 +18,7 @@ export function createWktLayer(wkt, color) {
         // featureProjection: 'EPSG:3857',
     });
     const layer = new VectorLayer({
+        zIndex: 4,
         source: new VectorSource({
             features: [feature],
             wrapX: false,
@@ -71,6 +72,7 @@ export function createBboxLayer(bbox) {
     });
 
     const layer = new VectorLayer({
+        zIndex: 5,
         source: new VectorSource({
             features: [feature],
             wrapX: false,
@@ -99,6 +101,7 @@ export function createBackgroundLayer() {
     });
 
     const layer = new OlLayerTile({
+        preload: Infinity,
         source: source,
         extent: [-180, -90, 180, 90],
     });
