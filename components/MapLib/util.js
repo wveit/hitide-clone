@@ -13,10 +13,7 @@ import { Style, Stroke } from 'ol/style';
 
 export function createWktLayer(wkt, color) {
     const format = new WKT();
-    const feature = format.readFeature(wkt, {
-        // dataProjection: 'EPSG:4326',
-        // featureProjection: 'EPSG:3857',
-    });
+    const feature = format.readFeature(wkt);
     const layer = new VectorLayer({
         zIndex: 4,
         source: new VectorSource({
