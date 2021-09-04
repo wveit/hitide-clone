@@ -11,6 +11,7 @@ import { useState } from 'react';
 import { TitleBar } from './TitleBar';
 import HitideMap from './HitideMap';
 import DatasetGranuleCounts from './DatasetGranuleCounts';
+import JobSubmitter from './JobSubmitter';
 
 export default function App() {
     const [drawerOpen, setDrawerOpen] = useState(true);
@@ -40,6 +41,7 @@ export default function App() {
                         <h2>Downloads</h2>
                         <p>Review Pending Jobs</p>
                         <PendingJobList />
+                        <JobSubmitter />
                     </section>
                 </Tabs>
             </Drawer>
