@@ -1,14 +1,13 @@
 import { connect } from 'react-redux';
 import { selectPendingJobs } from '../state/pendingJobSlice';
-import { selectDatasets } from '../state/datasetSearchSlice';
 
-function PendingJobList({ pendingJobs, datasets }) {
+function PendingJobList({ pendingJobs }) {
     return (
         <div className='container'>
             {Object.values(pendingJobs).map((job) => (
                 <div className='job' key={job.id}>
                     <span>&gt;</span>
-                    <span>{datasets[job.datasetId].shortName}</span>
+                    <span>{job.datasetShortName}</span>
                     <span>{job.granules.length} granules</span>
                 </div>
             ))}
@@ -38,7 +37,6 @@ function PendingJobList({ pendingJobs, datasets }) {
 function select(state) {
     return {
         pendingJobs: selectPendingJobs(state),
-        datasets: selectDatasets(state),
     };
 }
 
