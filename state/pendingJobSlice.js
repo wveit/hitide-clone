@@ -12,10 +12,13 @@ const slice = createSlice({
             const job = action.payload;
             state.pendingJobs[job.id] = job;
         },
+        doRemoveAllPendingJobs(state, action) {
+            state.pendingJobs = {};
+        },
     },
 });
 
 export default slice.reducer;
-export const { doAddPendingJob } = slice.actions;
+export const { doAddPendingJob, doRemoveAllPendingJobs } = slice.actions;
 
 export const selectPendingJobs = (state) => state.pendingJob.pendingJobs;

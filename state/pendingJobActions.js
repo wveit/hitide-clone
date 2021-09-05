@@ -1,4 +1,4 @@
-import { doAddPendingJob as _doAddPendingJob } from './pendingJobSlice';
+import { doAddPendingJob as _doAddPendingJob, doRemoveAllPendingJobs, selectPendingJobs } from './pendingJobSlice';
 import { selectDatasets } from './datasetSearchSlice';
 import { selectVariables } from './variablesSlice';
 import {
@@ -8,6 +8,7 @@ import {
     selectGranules,
 } from './granuleSearchSlice';
 import { selectBbox } from './datasetSearchSlice';
+import { doAddJobToHistory } from './jobHistorySlice';
 
 export const doAddPendingJob = () => (dispatch, getState) => {
     const id = new Date().getTime();
@@ -34,4 +35,34 @@ export const doAddPendingJob = () => (dispatch, getState) => {
     dispatch(
         _doAddPendingJob({ id, datasetId, datasetShortName, granules, bbox, startDate, endDate, nameFilter, variables })
     );
+};
+
+export const doSubmitPendingJobs = (email) => async (dispatch, getState) => {
+    const pendingJobs = selectPendingJobs(getState());
+
+    const jobList = Object.values(pendingJobs).map((job) => ({
+        compact: false,
+        datasetId: job.datasetId,
+        bbox: job.bbox.join(','),
+        variables: Object.keys(job.variables),
+        granuleIds: job.granules,
+    }));
+
+    const query = {
+        email,
+        query: jobList,
+    };
+
+    const response = await fetch('https://podaac-tools.jpl.nasa.gov/l2ss-services/l2ss/subset/submit', {
+        method: 'POST',
+        body: 'query=' + JSON.stringify(query),
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+    }).then((res) => res.json());
+
+    dispatch(doRemoveAllPendingJobs());
+    dispatch(doAddJobToHistory(response.token));
+
+    console.log('https://podaac-tools.jpl.nasa.gov/l2ss-services/l2ss/subset/status?token=' + response.token);
 };

@@ -12,6 +12,7 @@ import { TitleBar } from './TitleBar';
 import HitideMap from './HitideMap';
 import DatasetGranuleCounts from './DatasetGranuleCounts';
 import JobSubmitter from './JobSubmitter';
+import JobHistory from './JobHistory';
 
 export default function App() {
     const [drawerOpen, setDrawerOpen] = useState(true);
@@ -42,6 +43,7 @@ export default function App() {
                         <p>Review Pending Jobs</p>
                         <PendingJobList />
                         <JobSubmitter />
+                        <JobHistory />
                     </section>
                 </Tabs>
             </Drawer>
