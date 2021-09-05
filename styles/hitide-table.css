@@ -24,7 +24,7 @@
 
 .hitide-table__content {
     overflow-y: scroll;
-    background-color: lightgray;
+    background-color: rgb(231, 231, 231);
     flex-grow: 1;
 }
 

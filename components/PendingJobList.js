@@ -3,31 +3,24 @@ import { selectPendingJobs } from '../state/pendingJobSlice';
 
 function PendingJobList({ pendingJobs }) {
     return (
-        <div className='container'>
-            {Object.values(pendingJobs).map((job) => (
-                <div className='job' key={job.id}>
-                    <span>&gt;</span>
-                    <span>{job.datasetShortName}</span>
-                    <span>{job.granules.length} granules</span>
-                </div>
-            ))}
+        <div className='hitide-table'>
+            <div className='hitide-table__content'>
+                {Object.values(pendingJobs).map((job) => (
+                    <div className='hitide-table__row' key={job.id}>
+                        <span>&gt;</span>
+                        <span>{job.datasetShortName}</span>
+                        <span>{job.granules.length} granules</span>
+                    </div>
+                ))}
+            </div>
 
             <style jsx>{`
-                .container {
-                    width: 100%;
-                    height: 200px;
-                    background-color: beige;
-                    padding: 3px;
+                .hitide-table__content {
+                    height: 150px;
                 }
 
-                .job {
-                    background-color: white;
-                    margin: 3px;
-                    padding: 3px;
-                }
-
-                span {
-                    margin: 0 1rem;
+                .hitide-table__row {
+                    margin: 4px;
                 }
             `}</style>
         </div>

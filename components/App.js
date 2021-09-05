@@ -40,7 +40,7 @@ export default function App() {
                     </section>
                     <section>
                         <h2>Downloads</h2>
-                        <p>Review Pending Jobs</p>
+                        <h4>Review Pending Jobs</h4>
                         <PendingJobList />
                         <JobSubmitter />
                         <h4>History</h4>
@@ -63,6 +63,10 @@ export default function App() {
                     padding: 0 1rem;
                     font-size: 0.8rem;
                     overflow-y: scroll;
+                }
+
+                section > :global(*) {
+                    margin-bottom: 1rem;
                 }
             `}</style>
         </div>
