@@ -43,6 +43,7 @@ export default function App() {
                         <p>Review Pending Jobs</p>
                         <PendingJobList />
                         <JobSubmitter />
+                        <h4>History</h4>
                         <JobHistory />
                     </section>
                 </Tabs>

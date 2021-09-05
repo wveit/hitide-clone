@@ -1,0 +1,34 @@
+.hitide-table {
+    border: 1px solid gray;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+}
+
+.hitide-table__header,
+.hitide-table__row {
+    display: flex;
+    align-items: center;
+    padding: 6px;
+}
+
+.hitide-table__header > *,
+.hitide-table__row > * {
+    margin: 0 3px;
+}
+
+.hitide-table__header {
+    background-color: lightblue;
+    border-bottom: 1px solid gray;
+}
+
+.hitide-table__content {
+    overflow-y: scroll;
+    background-color: lightgray;
+    flex-grow: 1;
+}
+
+.hitide-table__row {
+    background-color: white;
+    border-bottom: 1px solid lightgray;
+}
