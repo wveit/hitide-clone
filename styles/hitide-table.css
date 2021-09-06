@@ -3,13 +3,14 @@
     border-radius: 3px;
     display: flex;
     flex-direction: column;
+    cursor: default;
 }
 
 .hitide-table__header,
 .hitide-table__row {
     display: flex;
     align-items: center;
-    padding: 6px;
+    padding: 3px;
 }
 
 .hitide-table__header > *,

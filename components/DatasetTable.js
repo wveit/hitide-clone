@@ -7,16 +7,16 @@ export function DatasetTable({ datasets, selectedDatasets, onToggleDataset }) {
     return (
         <>
             <p>Found {dsArray.length} datasets.</p>
-            <div className='container'>
-                <div className='row header'>
+            <div className='hitide-table'>
+                <div className='hitide-table__header'>
                     <div>Select</div>
                     <div>Name</div>
                     <div>Start</div>
                     <div>End</div>
                 </div>
-                <div className='data-container'>
+                <div className='hitide-table__content'>
                     {dsArray.map((ds) => (
-                        <div className='row' key={ds.id}>
+                        <div className='hitide-table__row' key={ds.id}>
                             <div className='buttons'>
                                 <input
                                     type='checkbox'
@@ -34,30 +34,18 @@ export function DatasetTable({ datasets, selectedDatasets, onToggleDataset }) {
             </div>
 
             <style jsx>{`
-                .container {
+                .hitide-table {
                     height: 300px;
-                    width: 100%;
-                    border: 1px solid gray;
-                    border-radius: 3px;
-                    display: inline-flex;
-                    flex-direction: column;
                 }
 
-                .header {
-                    background-color: lightblue;
-                    border-bottom: 1px solid gray;
-                }
-
-                .data-container {
-                    overflow-y: scroll;
-                }
-
-                .row {
+                .hitide-table__header,
+                .hitide-table__row {
                     display: grid;
                     grid-template-columns: 4rem 1fr 6rem 6rem;
                 }
 
-                .row > div {
+                .hitide-table__header > div,
+                .hitide-table__row > div {
                     padding: 0.3rem 0.5rem;
                     word-break: break-all;
                 }
