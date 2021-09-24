@@ -22,14 +22,21 @@ export function GranuleSearchTable({
     const granuleFilterArray = Object.values(granuleFilters);
 
     return (
+        <div className='hitide-table'>
+            <div className='hitide-table__header'>
                 <div>Name</div>
                 <div>Granule Count</div>
                 <div className='fa fa-download hitide-btn' aria-hidden='true' onClick={onDownloadAllGranules} />
                 <div className='far fa-times-circle hitide-btn' onClick={onUnselectAllDatasets} />
             </div>
+            <div className='hitide-table__content'>
                 {granuleFilterArray.map((filter) => (
                     <div
                         key={filter.datasetId}
+                        className={
+                            'hitide-table__row ' +
+                            (currentGranuleFilter === filter.datasetId ? 'hitide-table__row--selected' : '')
+                        }
                         onClick={() => onGranuleFilterSelect(filter.datasetId)}
                     >
                         <div>
@@ -62,13 +69,11 @@ export function GranuleSearchTable({
             </div>
 
             <style jsx>{`
+                .hitide-table__header,
+                .hitide-table__row {
                     display: grid;
                     grid-template-columns: 1fr 8rem 1.5rem 1.5rem;
                     padding: 0.2rem 0.5rem;
-                }
-
-                .selected {
-                    background-color: rgb(238, 238, 238);
                 }
 
                 .color-circle {

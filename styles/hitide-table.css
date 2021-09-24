@@ -33,3 +33,7 @@
     background-color: white;
     border-bottom: 1px solid lightgray;
 }
+
+.hitide-table__row--selected {
+    background-color: rgb(238, 238, 238);
+}
