@@ -38,7 +38,7 @@ function GranuleTable({
 
     function handleClick(e) {
         e.stopPropagation();
-        const row = e.target.closest('.row');
+        const row = e.target.closest('.hitide-table__row');
         const granuleId = row.dataset['granuleId'];
         if (e.shiftKey) {
             // handle range select
@@ -53,15 +53,15 @@ function GranuleTable({
     }
 
     return (
-        <div className='container'>
-            <div className='row header'>
+        <div className='hitide-table'>
+            <div className='hitide-table__header'>
                 <div></div>
                 <div></div>
                 <div>Name</div>
                 <div>Start Time</div>
                 <div>End Time</div>
             </div>
-            <div className='data-container'>
+            <div className='hitide-table__content'>
                 {granuleArray.map((g) => {
                     const footprintSelected = footprintGranules[datasetId][g.id];
                     const previewSelected = previewGranules[datasetId][g.id];
@@ -70,12 +70,15 @@ function GranuleTable({
                             key={g.id}
                             onClick={handleClick}
                             data-granule-id={g.id}
-                            className={'row ' + (currentSelectedGranules[g.id] ? 'selected' : '')}
+                            className={
+                                'hitide-table__row ' +
+                                (currentSelectedGranules[g.id] ? 'hitide-table__row--selected' : '')
+                            }
                         >
                             <div>
                                 <span
                                     className={
-                                        'fas fa-draw-polygon hitide-btn footprint' +
+                                        'fas fa-draw-polygon hitide-btn footprint ' +
                                         (footprintSelected ? ' selected' : '')
                                     }
                                     onClick={(e) => {
@@ -110,20 +113,12 @@ function GranuleTable({
             </div>
 
             <style jsx>{`
-                .container {
-                    width: 100%;
+                .hitide-table {
                     height: 300px;
-                    border: 1px solid gray;
-                    display: inline-flex;
-                    flex-direction: column;
-                    cursor: default;
                 }
 
-                .data-container {
-                    overflow-y: scroll;
-                }
-
-                .row {
+                .hitide-table__header,
+                .hitide-table__row {
                     width: 100%;
                     display: grid;
                     font-size: 0.7rem;
@@ -131,17 +126,9 @@ function GranuleTable({
                     padding: 0.2rem 0;
                 }
 
-                .row > div {
+                .hitide-table__row > div {
                     padding: 0.3rem;
                     word-break: break-all;
-                }
-
-                .row.header {
-                    background-color: lightblue;
-                }
-
-                .selected {
-                    background-color: rgb(238, 238, 238);
                 }
 
                 .footprint,
