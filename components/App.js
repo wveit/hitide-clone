@@ -26,6 +26,12 @@ export default function App() {
                 <Tabs tabs={['Search Datasets', 'Search Granules', 'Downloads']}>
                     <section>
                         <h2>Dataset Search</h2>
+                        <p>
+                            Search for datasets by date range, region, and parameter. Datasets selected in the results
+                            table will be available for subsetting and previewing in Granule Selection. Note: Dataset
+                            granules in Granule Selection will be constrained by the date range and region filters you
+                            apply below.
+                        </p>
                         <DatasetFilters />
                         <DatasetTable />
                         <h4>Selected Datasets</h4>
@@ -33,6 +39,10 @@ export default function App() {
                     </section>
                     <section>
                         <h2>GranuleSearch</h2>
+                        <p>
+                            Download matching granules for all datasets, for individual datasets, or click on a dataset
+                            to further filter and preview its granules.{' '}
+                        </p>
                         <GranuleSearchTable />
                         <GranuleFilters />
                         <GranuleTable />
@@ -40,6 +50,10 @@ export default function App() {
                     </section>
                     <section>
                         <h2>Downloads</h2>
+                        <p>
+                            Review the selections you have made then submit them for processing. We will zip and email
+                            you the results.{' '}
+                        </p>
                         <h4>Review Pending Jobs</h4>
                         <UnsubmittedJobTable />
                         <JobSubmitter />
@@ -67,6 +81,11 @@ export default function App() {
 
                 section > :global(*) {
                     margin-bottom: 1rem;
+                }
+
+                p {
+                    color: gray;
+                    font-style: italic;
                 }
             `}</style>
         </div>
