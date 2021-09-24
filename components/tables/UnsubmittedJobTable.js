@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import { selectPendingJobs } from '../state/pendingJobSlice';
+import { selectPendingJobs } from '../../state/pendingJobSlice';
 
-function PendingJobList({ pendingJobs }) {
+function UnsubmittedJobTable({ pendingJobs }) {
     return (
         <div className='hitide-table'>
             <div className='hitide-table__content'>
@@ -33,4 +33,4 @@ function select(state) {
     };
 }
 
-export default connect(select)(PendingJobList);
+export default connect(select)(UnsubmittedJobTable);

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { selectDatasets, selectSelectedDatasets } from '../state/datasetSearchSlice';
-import { doToggleDataset } from '../state/datasetActions';
+import { selectDatasets, selectSelectedDatasets } from '../../state/datasetSearchSlice';
+import { doToggleDataset } from '../../state/datasetActions';
 
 export function DatasetTable({ datasets, selectedDatasets, onToggleDataset }) {
     const dsArray = Object.values(datasets);

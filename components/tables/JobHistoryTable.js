@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { selectJobHistory } from '../state/jobHistorySlice';
-import { doUpdateJobs } from '../state/jobHistoryActions';
+import { selectJobHistory } from '../../state/jobHistorySlice';
+import { doUpdateJobs } from '../../state/jobHistoryActions';
 
-export function JobHistory({ jobs, updateJobs }) {
+export function JobHistoryTable({ jobs, updateJobs }) {
     useEffect(() => {
         const handle = setInterval(() => {
             updateJobs();
@@ -71,4 +71,4 @@ const actions = {
     updateJobs: doUpdateJobs,
 };
 
-export default connect(select, actions)(JobHistory);
+export default connect(select, actions)(JobHistoryTable);

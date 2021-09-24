@@ -10,7 +10,7 @@ import {
     doRemoveFootprintGranule,
     doAddPreviewGranule,
     doRemovePreviewGranule,
-} from '../state/granuleSearchSlice';
+} from '../../state/granuleSearchSlice';
 
 function format(date) {
     if (typeof date !== 'string') return date;

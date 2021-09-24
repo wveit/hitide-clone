@@ -3,11 +3,11 @@ import {
     doSetCurrentGranuleFilter,
     selectCurrentGranuleFilter,
     selectGranuleFilters,
-} from '../state/granuleSearchSlice';
-import { selectDatasets, selectDatasetGranuleCounts, selectDatasetColors } from '../state/datasetSearchSlice';
-import { doUnselectDatasetProcess, doUnselectAllDatasetsProcess } from '../state/datasetActions';
+} from '../../state/granuleSearchSlice';
+import { selectDatasets, selectDatasetGranuleCounts, selectDatasetColors } from '../../state/datasetSearchSlice';
+import { doUnselectDatasetProcess, doUnselectAllDatasetsProcess } from '../../state/datasetActions';
 
-export function GranuleSearchDatasetTable({
+export function GranuleSearchTable({
     granuleFilters,
     datasets,
     datasetGranuleCounts,
@@ -22,18 +22,14 @@ export function GranuleSearchDatasetTable({
     const granuleFilterArray = Object.values(granuleFilters);
 
     return (
-        <div className='container'>
-            <div className='header row'>
                 <div>Name</div>
                 <div>Granule Count</div>
                 <div className='fa fa-download hitide-btn' aria-hidden='true' onClick={onDownloadAllGranules} />
                 <div className='far fa-times-circle hitide-btn' onClick={onUnselectAllDatasets} />
             </div>
-            <div className='data-container'>
                 {granuleFilterArray.map((filter) => (
                     <div
                         key={filter.datasetId}
-                        className={'row ' + (currentGranuleFilter === filter.datasetId ? 'selected' : '')}
                         onClick={() => onGranuleFilterSelect(filter.datasetId)}
                     >
                         <div>
@@ -66,27 +62,9 @@ export function GranuleSearchDatasetTable({
             </div>
 
             <style jsx>{`
-                .container {
-                    width: 100%;
-                    height: 150px;
-                    border: 1px solid gray;
-                    display: inline-flex;
-                    flex-direction: column;
-                    cursor: default;
-                }
-
-                .data-container {
-                    overflow-y: scroll;
-                }
-
-                .row {
                     display: grid;
                     grid-template-columns: 1fr 8rem 1.5rem 1.5rem;
                     padding: 0.2rem 0.5rem;
-                }
-
-                .row.header {
-                    background-color: lightblue;
                 }
 
                 .selected {
@@ -121,4 +99,4 @@ const actions = {
     onGranuleFilterSelect: doSetCurrentGranuleFilter,
 };
 
-export default connect(select, actions)(GranuleSearchDatasetTable);
+export default connect(select, actions)(GranuleSearchTable);

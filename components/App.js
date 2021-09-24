@@ -1,10 +1,10 @@
 import DatasetFilters from './DatasetFilters';
-import DatasetTable from './DatasetTable';
-import GranuleSearchDatasetTable from './GranuleSearchDatasetTable';
+import DatasetTable from './tables/DatasetTable';
+import GranuleSearchTable from './tables/GranuleSearchTable';
 import GranuleFilters from './GranuleFilters';
-import GranuleTable from './GranuleTable';
+import GranuleTable from './tables/GranuleTable';
 import GranuleSearchButtonBar from './GranuleSearchButtonBar';
-import PendingJobList from './PendingJobList';
+import UnsubmittedJobTable from './tables/UnsubmittedJobTable';
 import { Tabs } from './Tabs';
 import { Drawer, DrawerToggle } from './Drawer';
 import { useState } from 'react';
@@ -12,7 +12,7 @@ import { TitleBar } from './TitleBar';
 import HitideMap from './HitideMap';
 import DatasetGranuleCounts from './DatasetGranuleCounts';
 import JobSubmitter from './JobSubmitter';
-import JobHistory from './JobHistory';
+import JobHistoryTable from './tables/JobHistoryTable';
 
 export default function App() {
     const [drawerOpen, setDrawerOpen] = useState(true);
@@ -33,7 +33,7 @@ export default function App() {
                     </section>
                     <section>
                         <h2>GranuleSearch</h2>
-                        <GranuleSearchDatasetTable />
+                        <GranuleSearchTable />
                         <GranuleFilters />
                         <GranuleTable />
                         <GranuleSearchButtonBar />
@@ -41,10 +41,10 @@ export default function App() {
                     <section>
                         <h2>Downloads</h2>
                         <h4>Review Pending Jobs</h4>
-                        <PendingJobList />
+                        <UnsubmittedJobTable />
                         <JobSubmitter />
                         <h4>History</h4>
-                        <JobHistory />
+                        <JobHistoryTable />
                     </section>
                 </Tabs>
             </Drawer>
