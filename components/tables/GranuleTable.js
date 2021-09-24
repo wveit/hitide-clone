@@ -89,6 +89,7 @@ function GranuleTable({
                                             onAddSelectedFootprint({ datasetId, granuleId: g.id });
                                         }
                                     }}
+                                    title='Show granule footprint'
                                 ></span>
                             </div>
                             <div>
@@ -102,6 +103,7 @@ function GranuleTable({
                                             onAddSelectedPreview({ datasetId, granuleId: g.id });
                                         }
                                     }}
+                                    title='Show granule preview image'
                                 ></span>
                             </div>
                             <div>{g.name}</div>
