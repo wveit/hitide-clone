@@ -7,8 +7,6 @@ const clientPassword = process.env.EDL_CLIENT_PASSWORD;
 const credentials = base64Encode(`${clientId}:${clientPassword}`);
 const baseUrl = process.env.EDL_BASE_URL;
 
-// http://localhost:3000/api/login?redirect_uri=http://localhost:3000/
-
 router.get('/', (req, res) => {
     const redirectUri = req.query.redirect_uri;
     res.redirect(`${baseUrl}/oauth/authorize?redirect_uri=${redirectUri}&client_id=${clientId}&response_type=code`);

@@ -1,4 +1,4 @@
-import { LoginControl } from './LoginControl';
+import LoginControl from './LoginControl';
 
 export function TitleBar({ onDrawerToggle }) {
     return (
