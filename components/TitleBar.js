@@ -1,3 +1,5 @@
+import { LoginControl } from './LoginControl';
+
 export function TitleBar({ onDrawerToggle }) {
     return (
         <div className='container'>
@@ -12,7 +14,7 @@ export function TitleBar({ onDrawerToggle }) {
                 <div className='fas fa-cog drawer-toggle'></div>
                 <div className='far fa-question-circle drawer-toggle'></div>
             </div>
-            <button>login</button>
+            <LoginControl />
 
             <style jsx>{`
                 .container {

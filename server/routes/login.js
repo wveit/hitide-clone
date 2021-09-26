@@ -15,15 +15,40 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    const { redirect_uri: redirectUri, code } = req.body;
-    const response = await requestToken({
+    const requestMillis = Date.now();
+    const { redirectUri, code } = req.body;
+    const tokenResponse = await requestToken({
         baseUrl,
         credentials,
         redirectUri,
         code,
     });
-    res.json(response);
+    const userResponse = await requestUser({
+        url: baseUrl + tokenResponse.endpoint,
+        token: tokenResponse.access_token,
+    });
+    const user = {
+        accessToken: tokenResponse.access_token,
+        refreshToken: tokenResponse.refresh_token,
+        expires: requestMillis + Number(tokenResponse.expires_in),
+        userEndpoint: tokenResponse.endpoint,
+        uid: userResponse.uid,
+        email: userResponse.email_address,
+    };
+    req.session.user = user;
+    console.log(`logged in user ${user.uid}`);
+    res.json({ uid: user.uid, email: user.email });
 });
+
+router.get('/me', async (req, res) => {});
+
+function requestUser({ url, token }) {
+    return fetch(url, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    }).then((res) => res.json());
+}
 
 function requestToken({ baseUrl, credentials, redirectUri, code }) {
     return fetch(`${baseUrl}/oauth/token`, {
