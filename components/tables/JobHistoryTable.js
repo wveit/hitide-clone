@@ -14,28 +14,26 @@ export function JobHistoryTable({ jobs, updateJobs }) {
 
     return (
         <div className='hitide-table'>
-            <div className='hitide-table__header'>
+            <div className='hitide-table__row hitide-table__header'>
                 <div></div>
                 <div>Start Time</div>
                 <div>Status</div>
                 <span className='far fa-times-circle hitide-btn' />
             </div>
-            <div className='hitide-table__content'>
-                {Object.values(jobs).map((job) => (
-                    <div className='hitide-table__row' key={job.token}>
-                        <i className='fa fa-info-circle hitide-btn' aria-hidden='true'></i>
-                        <span>{job.jobCreated}</span>
-                        {job.status === 'done' ? (
-                            <div>
-                                <button>Done - Download Links</button>
-                            </div>
-                        ) : (
-                            <span>{job.status}</span>
-                        )}
-                        <span className='far fa-times-circle hitide-btn' />
-                    </div>
-                ))}
-            </div>
+            {Object.values(jobs).map((job) => (
+                <div className='hitide-table__row' key={job.token}>
+                    <i className='fa fa-info-circle hitide-btn' aria-hidden='true'></i>
+                    <span>{job.jobCreated}</span>
+                    {job.status === 'done' ? (
+                        <div>
+                            <button>Done - Download Links</button>
+                        </div>
+                    ) : (
+                        <span>{job.status}</span>
+                    )}
+                    <span className='far fa-times-circle hitide-btn' />
+                </div>
+            ))}
 
             <style jsx>{`
                 .hitide-table {

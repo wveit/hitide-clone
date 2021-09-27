@@ -115,13 +115,11 @@ function Job({ job, onRemoveJob, onVariableToggle }) {
 function UnsubmittedJobTable({ pendingJobs, onRemoveJob, onVariableToggle }) {
     return (
         <div className='hitide-table'>
-            <div className='hitide-table__content'>
-                {Object.values(pendingJobs).map((job) => (
-                    <div key={job.id} className='hitide-table__row'>
-                        <Job job={job} onVariableToggle={onVariableToggle} onRemoveJob={onRemoveJob} />
-                    </div>
-                ))}
-            </div>
+            {Object.values(pendingJobs).map((job) => (
+                <div key={job.id} className='hitide-table__row'>
+                    <Job job={job} onVariableToggle={onVariableToggle} onRemoveJob={onRemoveJob} />
+                </div>
+            ))}
 
             <style jsx>{`
                 .hitide-table__content {

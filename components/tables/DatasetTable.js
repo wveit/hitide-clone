@@ -8,29 +8,27 @@ export function DatasetTable({ datasets, selectedDatasets, onToggleDataset }) {
         <>
             <p>Found {dsArray.length} datasets.</p>
             <div className='hitide-table'>
-                <div className='hitide-table__header'>
+                <div className='hitide-table__row hitide-table__header'>
                     <div>Select</div>
                     <div>Name</div>
                     <div>Start</div>
                     <div>End</div>
                 </div>
-                <div className='hitide-table__content'>
-                    {dsArray.map((ds) => (
-                        <div className='hitide-table__row' key={ds.id}>
-                            <div className='buttons'>
-                                <input
-                                    type='checkbox'
-                                    checked={!!selectedDatasets[ds.id]}
-                                    onChange={() => onToggleDataset(ds.id)}
-                                />
-                                <i className='fa fa-info-circle hitide-btn' aria-hidden='true'></i>
-                            </div>
-                            <div className='short-name'>{ds.shortName}</div>
-                            <div>{ds.startDate ? new Date(ds.startDate).toLocaleDateString() : '--'}</div>
-                            <div>{ds.endDate ? new Date(ds.endDate).toLocaleDateString() : 'Today'}</div>
+                {dsArray.map((ds) => (
+                    <div className='hitide-table__row' key={ds.id}>
+                        <div className='buttons'>
+                            <input
+                                type='checkbox'
+                                checked={!!selectedDatasets[ds.id]}
+                                onChange={() => onToggleDataset(ds.id)}
+                            />
+                            <i className='fa fa-info-circle hitide-btn' aria-hidden='true'></i>
                         </div>
-                    ))}
-                </div>
+                        <div className='short-name'>{ds.shortName}</div>
+                        <div>{ds.startDate ? new Date(ds.startDate).toLocaleDateString() : '--'}</div>
+                        <div>{ds.endDate ? new Date(ds.endDate).toLocaleDateString() : 'Today'}</div>
+                    </div>
+                ))}
             </div>
 
             <style jsx>{`

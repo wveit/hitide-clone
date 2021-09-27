@@ -23,50 +23,48 @@ export function GranuleSearchTable({
 
     return (
         <div className='hitide-table'>
-            <div className='hitide-table__header'>
+            <div className='hitide-table__row hitide-table__header'>
                 <div>Name</div>
                 <div>Granule Count</div>
                 <div className='fa fa-download hitide-btn' aria-hidden='true' onClick={onDownloadAllGranules} />
                 <div className='far fa-times-circle hitide-btn' onClick={onUnselectAllDatasets} />
             </div>
-            <div className='hitide-table__content'>
-                {granuleFilterArray.map((filter) => (
-                    <div
-                        key={filter.datasetId}
-                        className={
-                            'hitide-table__row ' +
-                            (currentGranuleFilter === filter.datasetId ? 'hitide-table__row--selected' : '')
-                        }
-                        onClick={() => onGranuleFilterSelect(filter.datasetId)}
-                    >
-                        <div>
-                            <div
-                                className='color-circle'
-                                style={{
-                                    backgroundColor: datasetColors[filter.datasetId],
-                                }}
-                            />
-                            {datasets[filter.datasetId].shortName}
-                        </div>
-                        <div>{datasetGranuleCounts[filter.datasetId]}</div>
+            {granuleFilterArray.map((filter) => (
+                <div
+                    key={filter.datasetId}
+                    className={
+                        'hitide-table__row ' +
+                        (currentGranuleFilter === filter.datasetId ? 'hitide-table__row--selected' : '')
+                    }
+                    onClick={() => onGranuleFilterSelect(filter.datasetId)}
+                >
+                    <div>
                         <div
-                            className='fa fa-download hitide-btn'
-                            aria-hidden='true'
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                onDownloadAllGranulesForDataset(filter.datasetId);
+                            className='color-circle'
+                            style={{
+                                backgroundColor: datasetColors[filter.datasetId],
                             }}
                         />
-                        <div
-                            className='far fa-times-circle hitide-btn'
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                onUnselectDataset(filter.datasetId);
-                            }}
-                        />
+                        {datasets[filter.datasetId].shortName}
                     </div>
-                ))}
-            </div>
+                    <div>{datasetGranuleCounts[filter.datasetId]}</div>
+                    <div
+                        className='fa fa-download hitide-btn'
+                        aria-hidden='true'
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            onDownloadAllGranulesForDataset(filter.datasetId);
+                        }}
+                    />
+                    <div
+                        className='far fa-times-circle hitide-btn'
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            onUnselectDataset(filter.datasetId);
+                        }}
+                    />
+                </div>
+            ))}
 
             <style jsx>{`
                 .hitide-table__header,

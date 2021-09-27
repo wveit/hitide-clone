@@ -54,65 +54,61 @@ function GranuleTable({
 
     return (
         <div className='hitide-table'>
-            <div className='hitide-table__header'>
+            <div className='hitide-table__row hitide-table__header'>
                 <div></div>
                 <div></div>
                 <div>Name</div>
                 <div>Start Time</div>
                 <div>End Time</div>
             </div>
-            <div className='hitide-table__content'>
-                {granuleArray.map((g) => {
-                    const footprintSelected = footprintGranules[datasetId][g.id];
-                    const previewSelected = previewGranules[datasetId][g.id];
-                    return (
-                        <div
-                            key={g.id}
-                            onClick={handleClick}
-                            data-granule-id={g.id}
-                            className={
-                                'hitide-table__row ' +
-                                (currentSelectedGranules[g.id] ? 'hitide-table__row--selected' : '')
-                            }
-                        >
-                            <div>
-                                <span
-                                    className={
-                                        'fas fa-draw-polygon hitide-btn footprint ' +
-                                        (footprintSelected ? ' selected' : '')
+            {granuleArray.map((g) => {
+                const footprintSelected = footprintGranules[datasetId][g.id];
+                const previewSelected = previewGranules[datasetId][g.id];
+                return (
+                    <div
+                        key={g.id}
+                        onClick={handleClick}
+                        data-granule-id={g.id}
+                        className={
+                            'hitide-table__row ' + (currentSelectedGranules[g.id] ? 'hitide-table__row--selected' : '')
+                        }
+                    >
+                        <div>
+                            <span
+                                className={
+                                    'fas fa-draw-polygon hitide-btn footprint ' + (footprintSelected ? ' selected' : '')
+                                }
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    if (footprintSelected) {
+                                        onRemoveSelectedFootprint({ datasetId, granuleId: g.id });
+                                    } else {
+                                        onAddSelectedFootprint({ datasetId, granuleId: g.id });
                                     }
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        if (footprintSelected) {
-                                            onRemoveSelectedFootprint({ datasetId, granuleId: g.id });
-                                        } else {
-                                            onAddSelectedFootprint({ datasetId, granuleId: g.id });
-                                        }
-                                    }}
-                                    title='Show granule footprint'
-                                ></span>
-                            </div>
-                            <div>
-                                <span
-                                    className={'far fa-image hitide-btn image' + (previewSelected ? ' selected' : '')}
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        if (previewSelected) {
-                                            onRemoveSelectedPreview({ datasetId, granuleId: g.id });
-                                        } else {
-                                            onAddSelectedPreview({ datasetId, granuleId: g.id });
-                                        }
-                                    }}
-                                    title='Show granule preview image'
-                                ></span>
-                            </div>
-                            <div>{g.name}</div>
-                            <div>{format(g.startDate)}</div>
-                            <div>{format(g.endDate)}</div>
+                                }}
+                                title='Show granule footprint'
+                            ></span>
                         </div>
-                    );
-                })}
-            </div>
+                        <div>
+                            <span
+                                className={'far fa-image hitide-btn image' + (previewSelected ? ' selected' : '')}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    if (previewSelected) {
+                                        onRemoveSelectedPreview({ datasetId, granuleId: g.id });
+                                    } else {
+                                        onAddSelectedPreview({ datasetId, granuleId: g.id });
+                                    }
+                                }}
+                                title='Show granule preview image'
+                            ></span>
+                        </div>
+                        <div>{g.name}</div>
+                        <div>{format(g.startDate)}</div>
+                        <div>{format(g.endDate)}</div>
+                    </div>
+                );
+            })}
 
             <style jsx>{`
                 .hitide-table {
