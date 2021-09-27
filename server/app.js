@@ -1,6 +1,6 @@
 import express from 'express';
 import 'dotenv';
-import loginRouter from './routes/login';
+import authRouter from './routes/auth';
 import { sequelize, sessionMiddleware } from './db';
 
 sequelize.authenticate();
@@ -8,7 +8,7 @@ sequelize.authenticate();
 const app = express();
 
 app.use(sessionMiddleware);
-app.use('/api/login', loginRouter);
+app.use('/api/auth', authRouter);
 
 app.get('/api/hello', (req, res) => {
     const count = req.session.count || 0;

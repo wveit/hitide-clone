@@ -7,12 +7,14 @@ const clientPassword = process.env.EDL_CLIENT_PASSWORD;
 const credentials = base64Encode(`${clientId}:${clientPassword}`);
 const baseUrl = process.env.EDL_BASE_URL;
 
-router.get('/', (req, res) => {
+const nullUser = { uid: null, email: null };
+
+router.get('/login', (req, res) => {
     const redirectUri = req.query.redirect_uri;
     res.redirect(`${baseUrl}/oauth/authorize?redirect_uri=${redirectUri}&client_id=${clientId}&response_type=code`);
 });
 
-router.post('/', async (req, res) => {
+router.post('/login', async (req, res) => {
     const requestMillis = Date.now();
     const { redirectUri, code } = req.body;
     const tokenResponse = await requestToken({
@@ -38,7 +40,15 @@ router.post('/', async (req, res) => {
     res.json({ uid: user.uid, email: user.email });
 });
 
-router.get('/me', async (req, res) => {});
+router.get('/me', async (req, res) => {
+    const user = req.session.user || nullUser;
+    res.json(user);
+});
+
+router.post('/logout', async (req, res) => {
+    req.session.destroy();
+    res.json(nullUser);
+});
 
 function requestUser({ url, token }) {
     return fetch(url, {

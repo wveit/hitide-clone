@@ -1,20 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { doSetUser, selectUser } from '../state/userSlice';
-import { doLogin, doCheckForAuthCode } from '../state/userActions';
+import { selectUser } from '../state/userSlice';
+import { doLogin, doLogout, doCheckForAuthCodeAndSession } from '../state/userActions';
 
-export function LoginControl({ user, setUser, login, checkForAuthCode }) {
+export function LoginControl({ user, login, logout, checkForAuthCode }) {
     useEffect(checkForAuthCode, [checkForAuthCode]);
 
     let userText = 'Login';
-    if (user) {
+    if (user.uid) {
         userText = user.uid;
     }
 
     function handleClick() {
-        if (user) {
-            // logout
-            setUser(null);
+        if (user.uid) {
+            logout();
         } else {
             login();
         }
@@ -30,9 +29,9 @@ function select(state) {
 }
 
 const actions = {
-    setUser: doSetUser,
     login: doLogin,
-    checkForAuthCode: doCheckForAuthCode,
+    logout: doLogout,
+    checkForAuthCode: doCheckForAuthCodeAndSession,
 };
 
 export default connect(select, actions)(LoginControl);

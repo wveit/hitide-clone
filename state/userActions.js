@@ -1,12 +1,14 @@
 import { doSetUser } from './userSlice';
 
-export const doCheckForAuthCode = () => async (dispatch, getState) => {
+export const doCheckForAuthCodeAndSession = () => async (dispatch, getState) => {
+    console.log('checking code');
     const code = extractCode();
-    if (!code) return;
+    if (!code) return dispatch(doCheckSession());
 
+    console.log('have code');
     const redirectUri = getRedirectUri();
 
-    const user = await fetch('/api/login', {
+    const user = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -25,7 +27,21 @@ export const doCheckForAuthCode = () => async (dispatch, getState) => {
 
 export const doLogin = () => () => {
     const redirectUri = getRedirectUri();
-    window.location.href = `/api/login?redirect_uri=${redirectUri}`;
+    window.location.href = `/api/auth/login?redirect_uri=${redirectUri}`;
+};
+
+export const doLogout = () => async (dispatch) => {
+    const user = await fetch('/api/auth/logout', {
+        method: 'POST',
+    }).then((res) => res.json());
+
+    dispatch(doSetUser(user));
+};
+
+export const doCheckSession = () => async (dispatch) => {
+    console.log('checking session');
+    const user = await fetch('/api/auth/me').then((res) => res.json());
+    dispatch(doSetUser(user));
 };
 
 function getRedirectUri() {
