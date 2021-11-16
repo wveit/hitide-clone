@@ -1,8 +1,9 @@
 import { connect } from 'react-redux';
 import { selectDatasets, selectSelectedDatasets } from '../../state/datasetSearchSlice';
 import { doToggleDataset } from '../../state/datasetActions';
+import { doSetDatasetInfoPage } from '../../state/modalsSlice';
 
-export function DatasetTable({ datasets, selectedDatasets, onToggleDataset }) {
+export function DatasetTable({ datasets, selectedDatasets, onToggleDataset, setDatasetInfoPage }) {
     const dsArray = Object.values(datasets);
     return (
         <>
@@ -23,7 +24,11 @@ export function DatasetTable({ datasets, selectedDatasets, onToggleDataset }) {
                                     checked={!!selectedDatasets[ds.id]}
                                     onChange={() => onToggleDataset(ds.id)}
                                 />
-                                <i className='fa fa-info-circle hitide-btn' aria-hidden='true'></i>
+                                <i
+                                    className='fa fa-info-circle hitide-btn'
+                                    aria-hidden='true'
+                                    onClick={() => setDatasetInfoPage(ds.id)}
+                                ></i>
                             </div>
                             <div className='short-name'>{ds.shortName}</div>
                             <div>{ds.startDate ? new Date(ds.startDate).toLocaleDateString() : '--'}</div>
@@ -77,6 +82,7 @@ function select(state) {
 
 const actions = {
     onToggleDataset: doToggleDataset,
+    setDatasetInfoPage: doSetDatasetInfoPage,
 };
 
 export default connect(select, actions)(DatasetTable);

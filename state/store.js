@@ -4,6 +4,7 @@ import granuleSearch from './granuleSearchSlice';
 import pendingJob from './pendingJobSlice';
 import variables from './variablesSlice';
 import jobHistory from './jobHistorySlice';
+import modals from './modalsSlice';
 
 const store = configureStore({
     reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
         pendingJob,
         variables,
         jobHistory,
+        modals,
     },
 });
 
