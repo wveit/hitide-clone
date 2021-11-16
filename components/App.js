@@ -6,7 +6,7 @@ import GranuleTable from './tables/GranuleTable';
 import GranuleSearchButtonBar from './GranuleSearchButtonBar';
 import UnsubmittedJobTable from './tables/UnsubmittedJobTable';
 import { Tabs } from './Tabs';
-import { Drawer, DrawerToggle } from './Drawer';
+import { Drawer } from './Drawer';
 import { useState } from 'react';
 import { TitleBar } from './TitleBar';
 import HitideMap from './HitideMap';
@@ -19,9 +19,10 @@ export default function App() {
 
     return (
         <div className='App'>
-            <HitideMap />
-            <DrawerToggle onClick={() => setDrawerOpen(!drawerOpen)} />
-            <Drawer isOpen={drawerOpen}>
+            <div className='NonDrawerArea'>
+                <HitideMap />
+            </div>
+            <Drawer isOpen={drawerOpen} onToggle={() => setDrawerOpen(!drawerOpen)}>
                 <TitleBar onDrawerToggle={() => setDrawerOpen(!drawerOpen)} />
                 <Tabs tabs={['Search Datasets', 'Search Granules', 'Downloads']}>
                     <section>
@@ -69,7 +70,12 @@ export default function App() {
                     height: 100%;
                     width: 100%;
                     background-color: gray;
-                    overflow: hidden;
+                    display: flex;
+                }
+
+                .NonDrawerArea {
+                    height: 100%;
+                    flex-grow: 1;
                 }
 
                 section {

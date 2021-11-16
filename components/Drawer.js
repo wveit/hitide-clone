@@ -1,32 +1,45 @@
-const defaultWidth = 600;
+// import { DrawerToggle } from './Drawer';
 
-export function Drawer({ children, isOpen, width: propsWidth }) {
-    let width = propsWidth || defaultWidth;
-
+export function Drawer({ children, isOpen, onToggle, width = '600px' }) {
+    const closedClass = isOpen ? '' : ' closed';
     return (
-        <div className={'Drawer' + (isOpen ? ' open' : '')}>
-            {children}
-
+        <div className={'DrawerContainer' + closedClass}>
+            <DrawerToggle onClick={onToggle} />
+            <div className='DrawerContent'>{children}</div>
             <style jsx>{`
-                .Drawer {
-                    position: absolute;
-                    top: 0;
-                    right: -${width}px;
+                .DrawerContainer {
                     height: 100%;
-                    width: ${width}px;
-                    transition: right 0.3s;
                     background-color: white;
+                    overflow-x: hidden;
+                    width: ${width};
+                    transition: width 0.5s;
                 }
 
-                .Drawer.open {
-                    right: 0;
+                .DrawerContainer.closed {
+                    width: 0px;
+                }
+
+                .DrawerToggle {
+                    position: absolute;
+                    right: 5px;
+                    top: 5px;
+                    width: 10px;
+                    height: 10px;
+                    background-color: red;
+                }
+
+                .DrawerContent {
+                    position: relative;
+                    height: 100%;
+                    z-index: 100;
+                    width: ${width};
                 }
             `}</style>
         </div>
     );
 }
 
-export function DrawerToggle({ onClick }) {
+function DrawerToggle({ onClick }) {
     return (
         <div className='fas fa-bars' onClick={onClick}>
             <style jsx>{`
