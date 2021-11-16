@@ -13,6 +13,7 @@ import HitideMap from './HitideMap';
 import DatasetGranuleCounts from './DatasetGranuleCounts';
 import JobSubmitter from './JobSubmitter';
 import JobHistoryTable from './tables/JobHistoryTable';
+import DatasetInfoPage from './DatasetInfoPage';
 
 export default function App() {
     const [drawerOpen, setDrawerOpen] = useState(true);
@@ -63,6 +64,8 @@ export default function App() {
                     </section>
                 </Tabs>
             </Drawer>
+
+            <DatasetInfoPage />
 
             <style jsx>{`
                 .App {

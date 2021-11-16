@@ -22,7 +22,7 @@ export function Modal({ show, children, onClickOutside }) {
                     align-items: center;
                     justify-content: center;
                     background-color: rgba(0, 0, 0, 0.5);
-                    z-index: 10;
+                    z-index: 110;
                 }
 
                 .Modal__content {
