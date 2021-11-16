@@ -69,6 +69,10 @@ export function GranuleSearchTable({
             </div>
 
             <style jsx>{`
+                .hitide-table {
+                    min-height: 100px;
+                }
+
                 .hitide-table__header,
                 .hitide-table__row {
                     display: grid;
