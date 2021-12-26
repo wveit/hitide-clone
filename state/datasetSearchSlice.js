@@ -56,6 +56,7 @@ export const {
 } = slice.actions;
 
 export const selectDatasets = (state) => state.datasetSearch.datasets;
+export const selectDatasetArray = createSelector(selectDatasets, (datasets) => Object.values(datasets));
 export const selectStartDate = (state) => state.datasetSearch.startDate;
 export const selectEndDate = (state) => state.datasetSearch.endDate;
 export const selectBbox = (state) => state.datasetSearch.bbox;

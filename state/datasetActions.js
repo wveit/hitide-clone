@@ -10,16 +10,21 @@ import { doFetchGranules } from './granuleActions';
 import { doSetVariables, doSetImageVariables, doAddPalette, selectVariables } from './variablesSlice';
 import { doCreateGranuleFilter, doDeleteGranuleFilter, doDeleteAllGranuleFilters } from './granuleSearchSlice';
 
-export const doFetchDatasets = () => async (dispatch, getState) => {
-    const { bbox, startDate, endDate } = getState().datasetSearch;
-    const rawResponse = await api.fetchDatasets({ bbox, startDate, endDate });
-    const datasets = api.extractDatasets(rawResponse);
-    dispatch(doSetDatasets(datasets));
+export const doFetchDatasets =
+    () =>
+    async (dispatch, getState, { datasetSearchService }) => {
+        const datasets = await datasetSearchService.fetchDatasets();
+        dispatch(doSetDatasets(datasets));
 
-    Object.keys(datasets).forEach((datasetId) => {
-        dispatch(doFetchVariables(datasetId));
-    });
-};
+        // const { bbox, startDate, endDate } = getState().datasetSearch;
+        // const rawResponse = await api.fetchDatasets({ bbox, startDate, endDate });
+        // const datasets = api.extractDatasets(rawResponse);
+        // dispatch(doSetDatasets(datasets));
+
+        // Object.keys(datasets).forEach((datasetId) => {
+        //     dispatch(doFetchVariables(datasetId));
+        // });
+    };
 
 export const doSelectDatasetProcess = (datasetId) => (dispatch) => {
     dispatch(doSelectDataset(datasetId));
