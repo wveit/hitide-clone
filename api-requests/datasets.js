@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export async function fetchDatasets({ bbox, startDate, endDate }) {
     const [west, south, east, north] = bbox;
 
@@ -6,7 +8,7 @@ export async function fetchDatasets({ bbox, startDate, endDate }) {
     if (endDate) url += `&endTime=${new Date(endDate).toISOString()}`;
     if (bbox) url += `&bbox=${west},${south},${east},${north}`;
 
-    const rawResponse = await fetch(url).then((res) => res.json());
+    const rawResponse = await axios({ url }).then((res) => res.data);
     return rawResponse;
 }
 
