@@ -1,4 +1,3 @@
-import * as api from '../api-requests/datasets';
 import {
     doSetDatasets,
     doSelectDataset,
@@ -7,23 +6,17 @@ import {
     selectSelectedDatasets,
 } from './datasetSearchSlice';
 import { doFetchGranules } from './granuleActions';
-import { doSetVariables, doSetImageVariables, doAddPalette, selectVariables } from './variablesSlice';
+import { doSetVariables, doSetImageVariables, selectVariables } from './variablesSlice';
 import { doCreateGranuleFilter, doDeleteGranuleFilter, doDeleteAllGranuleFilters } from './granuleSearchSlice';
 
 export const doFetchDatasets =
     () =>
     async (dispatch, getState, { datasetSearchService }) => {
-        const datasets = await datasetSearchService.fetchDatasets();
+        const { bbox, startDate, endDate } = getState().datasetSearch;
+        const datasets = await datasetSearchService.fetchDatasets({ bbox, startDate, endDate });
         dispatch(doSetDatasets(datasets));
 
-        // const { bbox, startDate, endDate } = getState().datasetSearch;
-        // const rawResponse = await api.fetchDatasets({ bbox, startDate, endDate });
-        // const datasets = api.extractDatasets(rawResponse);
-        // dispatch(doSetDatasets(datasets));
-
-        // Object.keys(datasets).forEach((datasetId) => {
-        //     dispatch(doFetchVariables(datasetId));
-        // });
+        // TODO: Fetch Variables
     };
 
 export const doSelectDatasetProcess = (datasetId) => (dispatch) => {

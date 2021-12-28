@@ -1,7 +1,11 @@
 {
   "env": {
-    "browser": true
+    "browser": true,
+    "es2021": true
   },
-  "extends": ["next", "next/core-web-vitals", "eslint:recommended", "plugin:jest/recommended"],
-  "plugins": ["jest"]
+  "extends": ["eslint:recommended", "plugin:jest/recommended", "plugin:react/recommended", "plugin:react/jsx-runtime"],
+  "plugins": ["jest"],
+  "parserOptions": {
+    "sourceType": "module"
+  }
 }
