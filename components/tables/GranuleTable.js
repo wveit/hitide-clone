@@ -11,6 +11,7 @@ import {
     doAddPreviewGranule,
     doRemovePreviewGranule,
 } from '../../state/granuleSearchSlice';
+import {DateNumber} from '../../utils/DateNumber';
 
 function format(date) {
     if (typeof date !== 'string') return date;
@@ -107,8 +108,8 @@ function GranuleTable({
                                 ></span>
                             </div>
                             <div>{g.name}</div>
-                            <div>{format(g.startDate)}</div>
-                            <div>{format(g.endDate)}</div>
+                            <div>{format(DateNumber.toIso(g.startDate))}</div>
+                            <div>{format(DateNumber.toIso(g.endDate))}</div>
                         </div>
                     );
                 })}

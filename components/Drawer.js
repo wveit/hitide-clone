@@ -8,6 +8,7 @@ export function Drawer({ children, isOpen, onToggle, width = '600px' }) {
             <div className='DrawerContent'>{children}</div>
             <style jsx>{`
                 .DrawerContainer {
+                    position: relative;
                     height: 100%;
                     background-color: white;
                     overflow-x: hidden;
@@ -19,13 +20,15 @@ export function Drawer({ children, isOpen, onToggle, width = '600px' }) {
                     width: 0px;
                 }
 
-                .DrawerToggle {
+                 {
+                    /* .DrawerToggle {
                     position: absolute;
                     right: 5px;
                     top: 5px;
                     width: 10px;
                     height: 10px;
                     background-color: red;
+                } */
                 }
 
                 .DrawerContent {

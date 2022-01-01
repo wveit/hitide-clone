@@ -6,7 +6,7 @@ import variables from './variablesSlice';
 import jobHistory from './jobHistorySlice';
 import modals from './modalsSlice';
 
-export function createStore({ datasetSearchService } = {}) {
+export function createStore({ datasetSearchService, granuleSearchService } = {}) {
     return configureStore({
         reducer: {
             datasetSearch,
@@ -19,7 +19,7 @@ export function createStore({ datasetSearchService } = {}) {
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware({
                 thunk: {
-                    extraArgument: { datasetSearchService },
+                    extraArgument: { datasetSearchService, granuleSearchService },
                 },
             }),
     });
