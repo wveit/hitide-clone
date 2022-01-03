@@ -12,7 +12,7 @@ function arrayToObject(array, idProperty = 'id') {
     return object;
 }
 
-export class DummyDatasetSearchService {
+export class FakeDatasetSearchService {
     constructor(baseDatasets = {}) {
         if (Array.isArray(baseDatasets)) this.baseDatasets = baseDatasets;
         else this.baseDatasets = Object.values(baseDatasets);

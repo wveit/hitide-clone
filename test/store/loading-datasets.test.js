@@ -1,7 +1,7 @@
 import { createStore } from '../../state/store';
 import { doSetStartDate, doSetEndDate, doSetBbox, selectDatasetArray } from '../../state/datasetSearchSlice';
 import { doFetchDatasets } from '../../state/datasetActions';
-import { DummyDatasetSearchService } from './DummyDatasetSearchService';
+import { FakeDatasetSearchService } from './FakeDatasetSearchService';
 import { DateNumber } from '../../utils/DateNumber';
 
 it('starts with 0 datasets', async () => {
@@ -14,7 +14,7 @@ it('starts with 0 datasets', async () => {
 });
 
 it('has datasets after fetching', async () => {
-    const datasetSearchService = new DummyDatasetSearchService([{ id: 'dataset-0' }, { id: 'dataset-1' }]);
+    const datasetSearchService = new FakeDatasetSearchService([{ id: 'dataset-0' }, { id: 'dataset-1' }]);
     const store = createStore({ datasetSearchService });
     store.dispatch(doFetchDatasets());
 
@@ -25,7 +25,7 @@ it('has datasets after fetching', async () => {
 });
 
 it('sends uses correct filters', async () => {
-    const datasetSearchService = new DummyDatasetSearchService([
+    const datasetSearchService = new FakeDatasetSearchService([
         { id: 'dataset-0', startDate: DateNumber.fromIso('2021-01-01') },
         { id: 'dataset-1' },
         { id: 'dataset-2', endDate: DateNumber.fromIso('2000-01-01') },
