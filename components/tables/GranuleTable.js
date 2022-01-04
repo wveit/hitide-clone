@@ -94,28 +94,23 @@ function GranuleTable({
                                     className={
                                         "fas fa-draw-polygon hitide-btn footprint " +
                                         (footprintSelected ? " selected" : "") +
-                                        (g.footprint ? "" : "disabled")
+                                        (g.footprint ? "" : " disabled")
                                     }
-                                    onClick={
-                                        g.footprint
-                                            ? (e) => {
-                                                  e.stopPropagation();
-                                                  if (footprintSelected) {
-                                                      onRemoveSelectedFootprint(
-                                                          {
-                                                              datasetId,
-                                                              granuleId: g.id,
-                                                          }
-                                                      );
-                                                  } else {
-                                                      onAddSelectedFootprint({
-                                                          datasetId,
-                                                          granuleId: g.id,
-                                                      });
-                                                  }
-                                              }
-                                            : undefined
-                                    }
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        if (!g.footprint) return;
+                                        if (footprintSelected) {
+                                            onRemoveSelectedFootprint({
+                                                datasetId,
+                                                granuleId: g.id,
+                                            });
+                                        } else {
+                                            onAddSelectedFootprint({
+                                                datasetId,
+                                                granuleId: g.id,
+                                            });
+                                        }
+                                    }}
                                     title="Show granule footprint"
                                 ></span>
                             </div>
@@ -123,10 +118,12 @@ function GranuleTable({
                                 <span
                                     className={
                                         "far fa-image hitide-btn image" +
-                                        (previewSelected ? " selected" : "")
+                                        (previewSelected ? " selected" : "") +
+                                        (g.imageUrlObject ? "" : " disabled")
                                     }
                                     onClick={(e) => {
                                         e.stopPropagation();
+                                        if (!g.imageUrlObject) return;
                                         if (previewSelected) {
                                             onRemoveSelectedPreview({
                                                 datasetId,
@@ -182,7 +179,7 @@ function GranuleTable({
                 }
 
                 .disabled {
-                    background-color: green;
+                    background-color: lightgray;
                 }
             `}</style>
         </div>

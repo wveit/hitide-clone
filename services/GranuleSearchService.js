@@ -33,7 +33,6 @@ function cmrUmmJsonGranuleToHitideGranule(rawGranule, datasetId) {
         name: rawGranule["meta"]["native-id"],
         footprint: extractFootprint(rawGranule),
         extent: extractExtent(rawGranule),
-        imageRootUrl: null,
         imageUrlObject: extractImageUrlObject(rawGranule),
         startDate: DateNumber.fromIso(timeRange["BeginningDateTime"]),
         endDate: DateNumber.fromIso(timeRange["EndingDateTime"]),
@@ -52,6 +51,8 @@ export function extractImageUrlObject(rawGranule) {
             const variableName = strings[strings.length - 2];
             imageUrlObject[variableName] = url.URL;
         });
+
+        if (Object.keys(imageUrlObject).length === 0) return null;
 
         return imageUrlObject;
     } catch {
