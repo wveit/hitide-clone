@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import {
     selectCurrentGranuleFilter,
     selectGranules,
@@ -10,11 +10,11 @@ import {
     doRemoveFootprintGranule,
     doAddPreviewGranule,
     doRemovePreviewGranule,
-} from '../../state/granuleSearchSlice';
-import {DateNumber} from '../../utils/DateNumber';
+} from "../../state/granuleSearchSlice";
+import { DateNumber } from "../../utils/DateNumber";
 
 function format(date) {
-    if (typeof date !== 'string') return date;
+    if (typeof date !== "string") return date;
     const newDate = date.substring(0, 16);
     return newDate;
 }
@@ -32,39 +32,50 @@ function GranuleTable({
     onAddSelectedPreview,
 }) {
     let granuleArray = [];
-    if (selectedGranuleFilter) granuleArray = Object.values(granules[selectedGranuleFilter]);
+    if (selectedGranuleFilter)
+        granuleArray = Object.values(granules[selectedGranuleFilter]);
 
     const datasetId = selectedGranuleFilter;
     const currentSelectedGranules = selectedGranules[datasetId];
 
     function handleClick(e) {
         e.stopPropagation();
-        const row = e.target.closest('.hitide-table__row');
-        const granuleId = row.dataset['granuleId'];
+        const row = e.target.closest(".hitide-table__row");
+        const granuleId = row.dataset["granuleId"];
         if (e.shiftKey) {
             // handle range select
             // TODO
         } else if (e.metaKey || e.ctrlKey) {
             // handle multi select
-            onSetSelectedGranules({ datasetId, selectedGranules: { ...currentSelectedGranules, [granuleId]: true } });
+            onSetSelectedGranules({
+                datasetId,
+                selectedGranules: {
+                    ...currentSelectedGranules,
+                    [granuleId]: true,
+                },
+            });
         } else {
             // handle regular select
-            onSetSelectedGranules({ datasetId, selectedGranules: { [granuleId]: true } });
+            onSetSelectedGranules({
+                datasetId,
+                selectedGranules: { [granuleId]: true },
+            });
         }
     }
 
     return (
-        <div className='hitide-table'>
-            <div className='hitide-table__header'>
+        <div className="hitide-table">
+            <div className="hitide-table__header">
                 <div></div>
                 <div></div>
                 <div>Name</div>
                 <div>Start Time</div>
                 <div>End Time</div>
             </div>
-            <div className='hitide-table__content'>
+            <div className="hitide-table__content">
                 {granuleArray.map((g) => {
-                    const footprintSelected = footprintGranules[datasetId][g.id];
+                    const footprintSelected =
+                        footprintGranules[datasetId][g.id];
                     const previewSelected = previewGranules[datasetId][g.id];
                     return (
                         <div
@@ -72,39 +83,63 @@ function GranuleTable({
                             onClick={handleClick}
                             data-granule-id={g.id}
                             className={
-                                'hitide-table__row ' +
-                                (currentSelectedGranules[g.id] ? 'hitide-table__row--selected' : '')
+                                "hitide-table__row " +
+                                (currentSelectedGranules[g.id]
+                                    ? "hitide-table__row--selected"
+                                    : "")
                             }
                         >
                             <div>
                                 <span
                                     className={
-                                        'fas fa-draw-polygon hitide-btn footprint ' +
-                                        (footprintSelected ? ' selected' : '')
+                                        "fas fa-draw-polygon hitide-btn footprint " +
+                                        (footprintSelected ? " selected" : "") +
+                                        (g.footprint ? "" : "disabled")
                                     }
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        if (footprintSelected) {
-                                            onRemoveSelectedFootprint({ datasetId, granuleId: g.id });
-                                        } else {
-                                            onAddSelectedFootprint({ datasetId, granuleId: g.id });
-                                        }
-                                    }}
-                                    title='Show granule footprint'
+                                    onClick={
+                                        g.footprint
+                                            ? (e) => {
+                                                  e.stopPropagation();
+                                                  if (footprintSelected) {
+                                                      onRemoveSelectedFootprint(
+                                                          {
+                                                              datasetId,
+                                                              granuleId: g.id,
+                                                          }
+                                                      );
+                                                  } else {
+                                                      onAddSelectedFootprint({
+                                                          datasetId,
+                                                          granuleId: g.id,
+                                                      });
+                                                  }
+                                              }
+                                            : undefined
+                                    }
+                                    title="Show granule footprint"
                                 ></span>
                             </div>
                             <div>
                                 <span
-                                    className={'far fa-image hitide-btn image' + (previewSelected ? ' selected' : '')}
+                                    className={
+                                        "far fa-image hitide-btn image" +
+                                        (previewSelected ? " selected" : "")
+                                    }
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         if (previewSelected) {
-                                            onRemoveSelectedPreview({ datasetId, granuleId: g.id });
+                                            onRemoveSelectedPreview({
+                                                datasetId,
+                                                granuleId: g.id,
+                                            });
                                         } else {
-                                            onAddSelectedPreview({ datasetId, granuleId: g.id });
+                                            onAddSelectedPreview({
+                                                datasetId,
+                                                granuleId: g.id,
+                                            });
                                         }
                                     }}
-                                    title='Show granule preview image'
+                                    title="Show granule preview image"
                                 ></span>
                             </div>
                             <div>{g.name}</div>
@@ -144,6 +179,10 @@ function GranuleTable({
 
                 .hitide-btn.selected {
                     color: violet;
+                }
+
+                .disabled {
+                    background-color: green;
                 }
             `}</style>
         </div>
