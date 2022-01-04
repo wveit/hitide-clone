@@ -12,5 +12,8 @@
     "plugins": ["jest"],
     "parserOptions": {
         "sourceType": "module"
+    },
+    "rules": {
+        "react/prop-types": false
     }
 }
