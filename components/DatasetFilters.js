@@ -16,7 +16,7 @@ function DatasetFilters({ startDate, onSetStartDate, endDate, onSetEndDate, bbox
     const [showBboxModal, setShowBboxModal] = useState(false);
     const [showDateRangeModal, setShowDateRangeModal] = useState(false);
 
-    useEffect(() => onFetchDatasets(), [onFetchDatasets, startDate, endDate, bbox]);
+    useEffect(() => { onFetchDatasets(); }, [onFetchDatasets, startDate, endDate, bbox]);
 
     return (
         <div className='DatasetFilters'>
